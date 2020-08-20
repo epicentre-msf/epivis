@@ -146,7 +146,6 @@ guide_train.guide_axis_trans <- function(x, ...) {
 #'
 #' @export
 max_2 <- function(x) {
-  # 2 most recent epi weeks to remove from charts
   x <- unique(x) %>% purrr::discard(is.na) %>% sort()
   n <- length(x)
   c(dplyr::nth(x, n-1), dplyr::nth(x, n))
@@ -161,4 +160,9 @@ max_2 <- function(x) {
 #' @export
 get_prev_sunday <- function(date) {
   lubridate::floor_date(as.Date(date), unit = "week", week_start = 7)
+}
+
+#' @export
+pad_number <- function(x) {
+  formatC(as.numeric(x), width = 2, format = "d", flag = "0")
 }

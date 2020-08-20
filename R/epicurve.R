@@ -137,7 +137,7 @@ plot_epicurve <- function(df,
   p <- ggplot(df_epicurve, aes({{date_col}}, n))
 
   if(missing(group_col)) {
-    p <- p + geom_col(fill = "steelblue")
+    p <- p + geom_col(fill = "steelblue", colour = "white", size = 0.2)
   } else {
     p <- p + geom_col(aes(fill = {{group_col}}), colour = "white", size = 0.2)
   }
@@ -145,7 +145,7 @@ plot_epicurve <- function(df,
   if(label_weeks) {
     date_vec <- df %>% tidyr::drop_na({{date_col}}) %>% dplyr::arrange({{date_col}}) %>% dplyr::pull({{date_col}})
     x_breaks <- seq.Date(date_vec[1], date_vec[length(date_vec)], by = date_breaks)
-    x_labs <- aweek::date2week(x_breaks, week_start = week_start, numeric = TRUE)
+    x_labs <- pad_number(aweek::date2week(x_breaks, week_start = week_start, numeric = TRUE))
   } else {
     x_breaks <- waiver()
     x_labs <- waiver()
