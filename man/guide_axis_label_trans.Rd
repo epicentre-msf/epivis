@@ -6,6 +6,9 @@
 \usage{
 guide_axis_label_trans(label_trans = identity, ...)
 }
+\arguments{
+\item{...}{}
+}
 \description{
 Duplicate discrete axis labels
 }

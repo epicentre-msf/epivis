@@ -7,11 +7,13 @@
 plot_epicurve(df, date_col, group_col = NULL, facet_col = NULL,
   prop_col = NULL, prop_numer = NULL, prop_denom = "non_missing",
   prop_line_colour = "red", prop_line_size = 0.8,
-  floor_date_week = FALSE, date_breaks = "2 weeks",
-  date_labels = "\%V", sec_date_axis = FALSE, facet_nrow = NULL,
-  facet_ncol = NULL, facet_lab_pos = "top", group_na_colour = "grey",
-  title = waiver(), subtitle = waiver(), date_lab = waiver(),
-  y_lab = waiver(), group_lab = waiver(), prop_lab = NULL)
+  floor_date_week = TRUE, label_weeks = TRUE, week_start = "Monday",
+  date_breaks = "2 weeks", date_labels = "\%V", sec_date_axis = TRUE,
+  facet_nrow = NULL, facet_ncol = NULL, facet_scales = "fixed",
+  facet_labs = label_wrap_gen(width = 25), facet_lab_pos = "top",
+  group_na_colour = "grey", title = waiver(), subtitle = waiver(),
+  date_lab = waiver(), y_lab = waiver(), group_lab = waiver(),
+  prop_lab = NULL)
 }
 \arguments{
 \item{df}{unaggregated dataframe of with a minumum of a date column with a date or POSIX class}
@@ -33,7 +35,11 @@ default "non_missing" will take the sum of all non-missing values in the column.
 
 \item{prop_line_size}{width of the proportion line. defaults to 0.8}
 
-\item{floor_date_week}{should \code{date_col} dates be floored to the Monday of the ISO week they fall in? defaults to FALSE}
+\item{floor_date_week}{should \code{date_col} dates be floored to the Monday of the ISO week they fall in? defaults to TRUE}
+
+\item{label_weeks}{label primary date axis with week numbers? defaults to TRUE}
+
+\item{week_start}{day of week defined as the start of the week. defaults to "Monday" (ISO week standard)}
 
 \item{date_breaks}{date break intervals passed to \code{\link[ggplot2:scale_x_date]{ggplot2::scale_x_date}}. defaults to "2 weeks"}
 
@@ -44,6 +50,8 @@ default "non_missing" will take the sum of all non-missing values in the column.
 \item{facet_nrow}{nrow argument passed to \code{\link[ggplot2:facet_wrap]{ggplot2::facet_wrap}}}
 
 \item{facet_ncol}{ncol argument passed to \code{\link[ggplot2:facet_wrap]{ggplot2::facet_wrap}}}
+
+\item{facet_labs}{facet labeller argument passed to \code{\link[ggplot2:facet_wrap]{ggplot2::facet_wrap}}. Defaults to \code{\link{label_wrap_gen(width = 25)}}}
 
 \item{facet_lab_pos}{facet label position argument passed to strip.position in \code{\link[ggplot2:facet_wrap]{ggplot2::facet_wrap}}. defaults to "top". Options are \code{c("top", "bottom", "left", "right")}}
 

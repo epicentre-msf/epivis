@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils.R
 \name{add_breaks}
 \alias{add_breaks}
-\title{Bin numeric vector into breaks using classInt::classIntervals}
+\title{Bin numeric vector into breaks using \code{\link[classInt:classIntervals]{classInt::classIntervals}}}
 \usage{
 add_breaks(x, n = 5, style = "jenks", lab_accuracy = 1,
   replace_Inf = TRUE)
@@ -13,10 +13,11 @@ add_breaks(x, n = 5, style = "jenks", lab_accuracy = 1,
 \item{n}{number of bins}
 
 \item{style}{of class intervals. see \code{\link[classInt:classIntervals]{classInt::classIntervals}} for details}
+
+\item{lab_accuracy}{accuracy of labels, passed to \code{\link[scales:label_number_si]{scales::label_number_si}}}
+
+\item{replace_Inf}{if \code{Inf} is your final break, replace with a + sign in the label?}
 }
 \description{
-Works with dplyr::mutate to add a column of breaks
-}
-\details{
-Breaks labels are formatted with scales::label_number_si
+Works with \code{\link[dplyr:mutate]{dplyr::mutate}} to add a column of breaks. Breaks labels are formatted with \code{\link[scales:label_number_si]{scales::label_number_si}}
 }

@@ -1,0 +1,15 @@
+destination: docs
+
+template:
+  params:
+    bootswatch: paper
+
+authors:
+  Paul Campbell:
+    href: https://github.com/paulc91
+
+reference:
+- title: Plotting functions
+  desc:  Helper functions to plot graphics
+  contents:
+  - starts_with("plot")
