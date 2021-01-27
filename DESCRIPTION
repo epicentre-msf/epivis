@@ -22,11 +22,10 @@ Imports:
     ggthemes,
     lubridate,
     classInt
-RoxygenNote: 6.1.1
+RoxygenNote: 7.1.1
 Suggests: 
     knitr,
     rmarkdown
 VignetteBuilder: knitr
 URL: https://github.com/epicentre-msf/epivis
 BugReports: https://github.com/epicentre-msf/epivis/issues
-

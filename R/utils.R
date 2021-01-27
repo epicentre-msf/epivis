@@ -39,39 +39,6 @@ integer_breaks <- function(n = 5, ...) {
 }
 
 #' @export
-pyramid_brks <- function(x, n = 5) {
-  brks <- pretty(0:max(abs(x)), n = n)
-  c(-brks, brks)
-}
-
-#' @export
-pyramid_limits <- function(x) {
-  c(-max(abs(x)), max(abs(x)))
-}
-
-#' @export
-pyramid_labs_pos <- function(x, f = 5) {
-  dplyr::case_when(
-    x > 0 & x < max(abs(x)) / f ~ -0.1,
-    x > 0 & x > max(abs(x)) / f ~ 1.1,
-    x < 0 & abs(x) < max(abs(x)) / f ~ 1.1,
-    x < 0 & abs(x) > max(abs(x)) / f ~ -0.1
-  )
-}
-
-#' @export
-pyramid_labs_colour <- function(x, f = 5, in_col = "white", out_col = "grey30") {
-  dplyr::case_when(
-    x > 0 & x < max(abs(x)) / f ~ out_col,
-    x > 0 & x > max(abs(x)) / f ~ in_col,
-    x < 0 & abs(x) < max(abs(x)) / f ~ out_col,
-    x < 0 & abs(x) > max(abs(x)) / f ~ in_col
-  )
-}
-
-#' @param n.dodge
-#'
-#' @export
 dodge_x_labs <- function(n.dodge = 2) {
   ggplot2::guides(x = ggplot2::guide_axis(n.dodge = n.dodge))
 }
@@ -94,6 +61,8 @@ add_breaks <- function(x, n = 5, style = "jenks", lab_accuracy = 1, replace_Inf 
   cut(x, br, include.lowest = TRUE, right = FALSE, labels = label_breaks(br, lab_accuracy, replace_Inf))
 }
 
+#' Format break labels
+#'
 #' @param breaks
 #'
 #' @param lab_accuracy accuracy of labels, passed to [`scales::label_number_si`]
@@ -112,8 +81,9 @@ label_breaks <- function(breaks, lab_accuracy = 1, replace_Inf = TRUE) {
   return(labs)
 }
 
-#' @param x a number to format
+#' Format numbers is units when large
 #'
+#' @param x a number to format
 #' @param accuracy accuracy of labels, passed to [`scales::label_number_si`]
 #'
 #' @export

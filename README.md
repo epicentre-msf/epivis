@@ -26,7 +26,7 @@ See package site for tutorial articles and function references:
 
 ## Roadmap
 
-  - [x] Epicurves
-  - [ ] Age/Sex pyramids
-  - [ ] Mapping
-  - [ ] Distributions
+-   [x] Epicurves
+-   [x] Age/Sex pyramids
+-   [ ] Mapping
+-   [ ] Distributions

@@ -39,6 +39,6 @@ See package site for tutorial articles and function references: https://epicentr
 ## Roadmap
 
 - [x] Epicurves
-- [ ] Age/Sex pyramids
+- [x] Age/Sex pyramids
 - [ ] Mapping
 - [ ] Distributions

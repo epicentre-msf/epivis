@@ -4,19 +4,38 @@
 \alias{plot_epicurve}
 \title{Plot incidence over time from patient level data}
 \usage{
-plot_epicurve(df, date_col, group_col = NULL, facet_col = NULL,
-  prop_col = NULL, prop_numer = NULL, prop_denom = "non_missing",
-  prop_line_colour = "red", prop_line_size = 0.8,
-  floor_date_week = TRUE, label_weeks = TRUE, week_start = "Monday",
-  date_breaks = "2 weeks", date_labels = "\%V", sec_date_axis = TRUE,
-  facet_nrow = NULL, facet_ncol = NULL, facet_scales = "fixed",
-  facet_labs = label_wrap_gen(width = 25), facet_lab_pos = "top",
-  group_na_colour = "grey", title = waiver(), subtitle = waiver(),
-  date_lab = waiver(), y_lab = waiver(), group_lab = waiver(),
-  prop_lab = NULL)
+plot_epicurve(
+  df,
+  date_col,
+  group_col = NULL,
+  facet_col = NULL,
+  prop_col = NULL,
+  prop_numer = NULL,
+  prop_denom = "non_missing",
+  prop_line_colour = "black",
+  prop_line_size = 0.8,
+  floor_date_week = FALSE,
+  label_weeks = FALSE,
+  week_start = "Monday",
+  date_breaks = "2 weeks",
+  date_labels = "\%V",
+  sec_date_axis = FALSE,
+  facet_nrow = NULL,
+  facet_ncol = NULL,
+  facet_scales = "fixed",
+  facet_labs = label_wrap_gen(width = 25),
+  facet_lab_pos = "top",
+  group_na_colour = "grey",
+  title = waiver(),
+  subtitle = waiver(),
+  date_lab = waiver(),
+  y_lab = waiver(),
+  group_lab = waiver(),
+  prop_lab = NULL
+)
 }
 \arguments{
-\item{df}{unaggregated dataframe of with a minumum of a date column with a date or POSIX class}
+\item{df}{unaggregated dataframe with a minumum of a date column with a date or POSIX class}
 
 \item{date_col}{date variable to plot incidence with. Must be provided.}
 
@@ -41,9 +60,9 @@ default "non_missing" will take the sum of all non-missing values in the column.
 
 \item{week_start}{day of week defined as the start of the week. defaults to "Monday" (ISO week standard)}
 
-\item{date_breaks}{date break intervals passed to \code{\link[ggplot2:scale_x_date]{ggplot2::scale_x_date}}. defaults to "2 weeks"}
+\item{date_breaks}{date break intervals passed to \code{\link[ggplot2:scale_date]{ggplot2::scale_x_date}}. defaults to "2 weeks"}
 
-\item{date_labels}{\code{\link[base:strptime]{base::strptime}} date label code passed to \code{\link[ggplot2:scale_x_date]{ggplot2::scale_x_date}}. defaults to "\%V" (ISO Week)}
+\item{date_labels}{\code{\link[base:strptime]{base::strptime}} date label code passed to \code{\link[ggplot2:scale_date]{ggplot2::scale_x_date}}. defaults to "\\\%V" (ISO Week)}
 
 \item{sec_date_axis}{plot a secondary date axis using default calculated ggplot2 date breaks and labels? defaults to FALSE}
 

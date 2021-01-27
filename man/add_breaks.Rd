@@ -4,8 +4,7 @@
 \alias{add_breaks}
 \title{Bin numeric vector into breaks using \code{\link[classInt:classIntervals]{classInt::classIntervals}}}
 \usage{
-add_breaks(x, n = 5, style = "jenks", lab_accuracy = 1,
-  replace_Inf = TRUE)
+add_breaks(x, n = 5, style = "jenks", lab_accuracy = 1, replace_Inf = TRUE)
 }
 \arguments{
 \item{x}{numeric vector}
