@@ -19,6 +19,12 @@
 #' @param lab_out_col
 #' @param lab_nudge_factor
 #' @param add_missing_cap
+#' @param facet_col
+#' @param facet_nrow
+#' @param facet_ncol
+#' @param facet_scales
+#' @param facet_labs
+#' @param facet_lab_pos
 #'
 #' @return a ggplot object
 #' @export
@@ -26,21 +32,27 @@ plot_pyramid <- function(
   df,
   age_col,
   gender_col,
+  facet_col = NULL,
   make_age_groups = TRUE,
   age_breaks = c(seq(0, 80, 10), Inf),
   age_labels = label_breaks(age_breaks),
   drop_age_levels = FALSE,
   gender_levels,
   gender_labs = NULL,
-  x_lab = "Age Group",
-  y_lab = "n",
+  x_lab = waiver(),
+  y_lab = waiver(),
   colours = c("#486090FF", "#7890A8FF"),
   show_data_labs = FALSE,
   lab_size = 4,
   lab_in_col = "white",
   lab_out_col = "grey30",
   lab_nudge_factor = 5,
-  add_missing_cap = TRUE
+  add_missing_cap = TRUE,
+  facet_nrow = NULL,
+  facet_ncol = NULL,
+  facet_scales = "fixed",
+  facet_labs = label_wrap_gen(width = 25),
+  facet_lab_pos = "top"
 ) {
 
   if (length(gender_levels) != 2) {
@@ -74,8 +86,10 @@ plot_pyramid <- function(
 
   missing_total <- nrow(df) - nrow(df_plot)
 
+  g_vars <- dplyr::enquos(facet_col, gender_col)
+
   df_plot %<>%
-    count({{gender_col}}, age_group) %>%
+    count(!!!g_vars, age_group) %>%
     mutate(n = if_else({{gender_col}} == gender_levels[1], -n, n))
 
   p <- ggplot(df_plot, aes(x = age_group, y = n, fill = {{gender_col}})) +
@@ -88,6 +102,18 @@ plot_pyramid <- function(
     theme(legend.position = "top") +
     labs(x = x_lab, y = y_lab)  +
     guides(y.sec = guide_axis_label_trans(~paste(.x))) # show age group labels on both axis
+
+  if (!missing(facet_col)) {
+    facet_lab_pos <- match.arg(facet_lab_pos, c("top", "bottom", "left", "right"))
+    p <- p + facet_wrap(
+      vars({{facet_col}}),
+      nrow = facet_nrow,
+      ncol = facet_ncol,
+      scales = facet_scales,
+      strip.position = facet_lab_pos,
+      labeller = facet_labs
+    )
+  }
 
   if (show_data_labs) {
     p <- p +

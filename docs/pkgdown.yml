@@ -4,7 +4,7 @@ pkgdown_sha: ~
 articles:
   epicurves: epicurves.html
   pyramids: pyramids.html
-last_built: 2021-01-27T01:04Z
+last_built: 2021-01-28T11:45Z
 urls:
   reference: https://epicentre-msf.github.io/epivis//reference
   article: https://epicentre-msf.github.io/epivis//articles

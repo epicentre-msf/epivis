@@ -136,21 +136,27 @@
   <span class='va'>df</span>,
   <span class='va'>age_col</span>,
   <span class='va'>gender_col</span>,
+  facet_col <span class='op'>=</span> <span class='cn'>NULL</span>,
   make_age_groups <span class='op'>=</span> <span class='cn'>TRUE</span>,
   age_breaks <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>80</span>, <span class='fl'>10</span><span class='op'>)</span>, <span class='cn'>Inf</span><span class='op'>)</span>,
   age_labels <span class='op'>=</span> <span class='fu'><a href='label_breaks.html'>label_breaks</a></span><span class='op'>(</span><span class='va'>age_breaks</span><span class='op'>)</span>,
   drop_age_levels <span class='op'>=</span> <span class='cn'>FALSE</span>,
   <span class='va'>gender_levels</span>,
   gender_labs <span class='op'>=</span> <span class='cn'>NULL</span>,
-  x_lab <span class='op'>=</span> <span class='st'>"Age Group"</span>,
-  y_lab <span class='op'>=</span> <span class='st'>"n"</span>,
+  x_lab <span class='op'>=</span> <span class='fu'>waiver</span><span class='op'>(</span><span class='op'>)</span>,
+  y_lab <span class='op'>=</span> <span class='fu'>waiver</span><span class='op'>(</span><span class='op'>)</span>,
   colours <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"#486090FF"</span>, <span class='st'>"#7890A8FF"</span><span class='op'>)</span>,
   show_data_labs <span class='op'>=</span> <span class='cn'>FALSE</span>,
   lab_size <span class='op'>=</span> <span class='fl'>4</span>,
   lab_in_col <span class='op'>=</span> <span class='st'>"white"</span>,
   lab_out_col <span class='op'>=</span> <span class='st'>"grey30"</span>,
   lab_nudge_factor <span class='op'>=</span> <span class='fl'>5</span>,
-  add_missing_cap <span class='op'>=</span> <span class='cn'>TRUE</span>
+  add_missing_cap <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  facet_nrow <span class='op'>=</span> <span class='cn'>NULL</span>,
+  facet_ncol <span class='op'>=</span> <span class='cn'>NULL</span>,
+  facet_scales <span class='op'>=</span> <span class='st'>"fixed"</span>,
+  facet_labs <span class='op'>=</span> <span class='fu'>label_wrap_gen</span><span class='op'>(</span>width <span class='op'>=</span> <span class='fl'>25</span><span class='op'>)</span>,
+  facet_lab_pos <span class='op'>=</span> <span class='st'>"top"</span>
 <span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -161,7 +167,7 @@
       <td><p>unaggregated dataframe with a minumum of age and gender variables</p></td>
     </tr>
     <tr>
-      <th>add_missing_cap</th>
+      <th>facet_lab_pos</th>
       <td></td>
     </tr>
     </table>

@@ -102,7 +102,7 @@
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/epicentre-msf/epivis">epivis</a></span><span class="op">)</span>
 
 <span class="co"># set a ggplot2 theme of your preference</span>
-<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme_get.html">theme_set</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_minimal</a></span><span class="op">(</span>base_size <span class="op">=</span> <span class="fl">12</span><span class="op">)</span><span class="op">)</span></code></pre></div>
+<span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme_get.html">theme_set</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_light</a></span><span class="op">(</span>base_size <span class="op">=</span> <span class="fl">12</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">df_flu</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tibble.tidyverse.org/reference/as_tibble.html">as_tibble</a></span><span class="op">(</span><span class="fu">outbreaks</span><span class="fu">::</span><span class="va"><a href="https://rdrr.io/pkg/outbreaks/man/fluH7N9_china_2013.html">fluH7N9_china_2013</a></span><span class="op">)</span>
 
@@ -148,11 +148,27 @@
 <p>Notice all age groups appear on the plot by default, whether there are any observations of this group or not. To remove groups with no observations use <code>drop_age_levels = TRUE</code>.</p>
 <p>If you have data that has already been binned by age and you want to use these bins, you can pass this column and set <code>make_age_groups = FALSE</code>.</p>
 </div>
+<div id="facetting" class="section level3">
+<h3 class="hasAnchor">
+<a href="#facetting" class="anchor"></a>Facetting</h3>
+<p>You can facet the graphic by supplying a <code>facet_col</code>:</p>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">df_flu</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>outcome <span class="op">=</span> <span class="fu">forcats</span><span class="fu">::</span><span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_explicit_na.html">fct_explicit_na</a></span><span class="op">(</span><span class="va">outcome</span>, <span class="st">"Unknown"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="../reference/plot_pyramid.html">plot_pyramid</a></span><span class="op">(</span>
+  age_col <span class="op">=</span> <span class="va">age</span>,
+  gender_col <span class="op">=</span> <span class="va">gender</span>,
+  facet_col <span class="op">=</span> <span class="va">outcome</span>, <span class="co"># facet by patient outcome</span>
+  facet_ncol <span class="op">=</span> <span class="fl">2</span>,
+  gender_levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"m"</span>, <span class="st">"f"</span><span class="op">)</span>
+<span class="op">)</span></code></pre></div>
+<p><img src="pyramids_files/figure-html/unnamed-chunk-4-1.png" width="768"></p>
+</div>
 <div id="labelling" class="section level3">
 <h3 class="hasAnchor">
 <a href="#labelling" class="anchor"></a>Labelling</h3>
 <p>There are arguments to format axis and legend labels, as well as add data labels to the plot:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/plot_pyramid.html">plot_pyramid</a></span><span class="op">(</span>
   df <span class="op">=</span> <span class="va">df_flu</span>,
   age_col <span class="op">=</span> <span class="va">age</span>,
@@ -164,26 +180,27 @@
   show_data_labs <span class="op">=</span> <span class="cn">TRUE</span>,
   add_missing_cap <span class="op">=</span> <span class="cn">FALSE</span> <span class="co"># remove caption detailing missing data</span>
 <span class="op">)</span></code></pre></div>
-<p><img src="pyramids_files/figure-html/unnamed-chunk-4-1.png" width="768"></p>
+<p><img src="pyramids_files/figure-html/unnamed-chunk-5-1.png" width="768"></p>
 <p>Notice smaller value labels are places outside the bar to improve legibility. You can change the threshold for moving a label with <code>lab_nudge_factor</code>. The default value is 5. Increasing the number increases the distance from the max value required to move a label outside the bar. So if you want to keep all labels inside the bars, increase to a higher value:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/plot_pyramid.html">plot_pyramid</a></span><span class="op">(</span>
   df <span class="op">=</span> <span class="va">df_flu</span>,
   age_col <span class="op">=</span> <span class="va">age</span>,
   gender_col <span class="op">=</span> <span class="va">gender</span>,
   gender_levels <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"m"</span>, <span class="st">"f"</span><span class="op">)</span>,
+  gender_labs <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Hommes"</span>, <span class="st">"Femmes"</span><span class="op">)</span>, <span class="co"># must respect the same order as the breaks</span>
   x_lab <span class="op">=</span> <span class="st">"Tranche d'Âge"</span>,
   y_lab <span class="op">=</span> <span class="st">"Nombre de Personnes"</span>,
   show_data_labs <span class="op">=</span> <span class="cn">TRUE</span>,
   lab_nudge_factor <span class="op">=</span> <span class="fl">50</span> <span class="co"># change from 5 to 50</span>
 <span class="op">)</span></code></pre></div>
-<p><img src="pyramids_files/figure-html/unnamed-chunk-5-1.png" width="768"></p>
+<p><img src="pyramids_files/figure-html/unnamed-chunk-6-1.png" width="768"></p>
 </div>
 <div id="theming" class="section level3">
 <h3 class="hasAnchor">
 <a href="#theming" class="anchor"></a>Theming</h3>
 <p>Although <code>plot_pyramid</code> has built-in theme defaults, because the function returns a ggplot object, you can easily reset any default by adding your own themes, palettes etc to the object:</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/plot_pyramid.html">plot_pyramid</a></span><span class="op">(</span>
   df <span class="op">=</span> <span class="va">df_flu</span>,
   age_col <span class="op">=</span> <span class="va">age</span>,
@@ -205,7 +222,7 @@
     axis.title.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>hjust <span class="op">=</span> <span class="fl">.5</span><span class="op">)</span>,
     axis.title.y <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>hjust <span class="op">=</span> <span class="fl">.5</span><span class="op">)</span>
   <span class="op">)</span></code></pre></div>
-<p><img src="pyramids_files/figure-html/unnamed-chunk-6-1.png" width="768"></p>
+<p><img src="pyramids_files/figure-html/unnamed-chunk-7-1.png" width="768"></p>
 </div>
 </div>
   </div>

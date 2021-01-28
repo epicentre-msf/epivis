@@ -30,7 +30,7 @@ library(outbreaks)
 library(epivis)
 
 # set a ggplot2 theme of your preference
-theme_set(theme_minimal(base_size = 12))
+theme_set(theme_light(base_size = 12))
 ```
 
 ```{r load-data}
@@ -76,6 +76,23 @@ Notice all age groups appear on the plot by default, whether there are any obser
 
 If you have data that has already been binned by age and you want to use these bins, you can pass this column and set `make_age_groups = FALSE`.
 
+### Facetting
+
+You can facet the graphic by supplying a `facet_col`:
+
+```{r}
+df_flu %>% 
+  mutate(outcome = forcats::fct_explicit_na(outcome, "Unknown")) %>% 
+  plot_pyramid(
+  age_col = age,
+  gender_col = gender,
+  facet_col = outcome, # facet by patient outcome
+  facet_ncol = 2,
+  gender_levels = c("m", "f")
+)
+```
+
+
 ### Labelling
 
 There are arguments to format axis and legend labels, as well as add data labels to the plot:
@@ -102,6 +119,7 @@ plot_pyramid(
   age_col = age,
   gender_col = gender,
   gender_levels = c("m", "f"),
+  gender_labs = c("Hommes", "Femmes"), # must respect the same order as the breaks
   x_lab = "Tranche d'Âge",
   y_lab = "Nombre de Personnes",
   show_data_labs = TRUE,
