@@ -127,44 +127,23 @@
   date_col <span class="op">=</span> <span class="va">date_of_onset</span>
 <span class="op">)</span></code></pre></div>
 <p><img src="epicurves_files/figure-html/unnamed-chunk-2-1.png" width="768"></p>
-<p>A note of default date labels: commonly epidemic curves are plotted by week, not day. As such, default date labels are set as ISO Week (00-53) at an interval of 2 weeks. This default is not appropriate for the daily data we have supplied, but we can fix this with built-in function arguments…</p>
-<p>Firstly we can add a <code>floor_date_week = TRUE</code> argument to group all dates to the first monday of the ISO Week they fall in (this is required for ggplot weekly tick marks to align properly with the columns). We also add some more informative axis labels:</p>
+<div id="working-with-dates-and-weeks" class="section level3">
+<h3 class="hasAnchor">
+<a href="#working-with-dates-and-weeks" class="anchor"></a>Working with dates and weeks</h3>
+<p>Commonly incidence is plotted by week, not day. Here we have daily data but we can ask <code>plot_epicurve</code> to re-calculate incidence by week instead by setting <code>floor_date_week = TRUE</code>. You can choose the first day of the week with <code>week_start</code> (defaults to 1 (Monday)). Finally we can set date axis labels to the week number rather than date.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/plot_epicurve.html">plot_epicurve</a></span><span class="op">(</span>
   <span class="va">df_ebola</span>, 
   date_col <span class="op">=</span> <span class="va">date_of_onset</span>, 
   floor_date_week <span class="op">=</span> <span class="cn">TRUE</span>, 
+  week_start <span class="op">=</span> <span class="fl">1</span>,
   label_weeks <span class="op">=</span> <span class="cn">TRUE</span>,
   date_lab <span class="op">=</span> <span class="st">"Week of onset"</span>, 
   y_lab <span class="op">=</span> <span class="st">"Incidence"</span>
 <span class="op">)</span></code></pre></div>
 <p><img src="epicurves_files/figure-html/unnamed-chunk-3-1.png" width="768"></p>
-<p>We can change the date break intervals with the <code>date_breaks</code> argument:</p>
-<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/plot_epicurve.html">plot_epicurve</a></span><span class="op">(</span>
-  <span class="va">df_ebola</span>, 
-  date_col <span class="op">=</span> <span class="va">date_of_onset</span>, 
-  floor_date_week <span class="op">=</span> <span class="cn">TRUE</span>, 
-  date_breaks <span class="op">=</span> <span class="st">"3 weeks"</span>, 
-  date_lab <span class="op">=</span> <span class="st">"Week of onset"</span>, 
-  y_lab <span class="op">=</span> <span class="st">"Incidence"</span>
-<span class="op">)</span></code></pre></div>
-<p><img src="epicurves_files/figure-html/unnamed-chunk-4-1.png" width="768"></p>
-<p>If you want to display more week labels but avoid overlapping, you can use the <code>dodge_x_labs</code> helper function:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu"><a href="../reference/plot_epicurve.html">plot_epicurve</a></span><span class="op">(</span>
-  <span class="va">df_ebola</span>, 
-  date_col <span class="op">=</span> <span class="va">date_of_onset</span>, 
-  floor_date_week <span class="op">=</span> <span class="cn">TRUE</span>,
-  label_weeks <span class="op">=</span> <span class="cn">TRUE</span>,
-  date_breaks <span class="op">=</span> <span class="st">"1 week"</span>, 
-  date_lab <span class="op">=</span> <span class="st">"Week of onset"</span>, 
-  y_lab <span class="op">=</span> <span class="st">"Incidence"</span>
-<span class="op">)</span> <span class="op">+</span>
-  <span class="fu">dodge_x_labs</span><span class="op">(</span><span class="op">)</span></code></pre></div>
-<p><img src="epicurves_files/figure-html/unnamed-chunk-5-1.png" width="768"></p>
 <p>Since week numbers alone don’t give us any information about the year they relate to, it can be useful to add a secondary date axis to display more standard date labels. This can be done with the <code>sec_date_axis = TRUE</code> argument:</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/plot_epicurve.html">plot_epicurve</a></span><span class="op">(</span>
   <span class="va">df_ebola</span>, 
   date_col <span class="op">=</span> <span class="va">date_of_onset</span>, 
@@ -174,12 +153,55 @@
   date_lab <span class="op">=</span> <span class="st">"Week of onset"</span>, 
   y_lab <span class="op">=</span> <span class="st">"Incidence"</span>
 <span class="op">)</span></code></pre></div>
+<p><img src="epicurves_files/figure-html/unnamed-chunk-4-1.png" width="768"></p>
+<p>Change the date break intervals with the <code>date_breaks</code> argument:</p>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/plot_epicurve.html">plot_epicurve</a></span><span class="op">(</span>
+  <span class="va">df_ebola</span>, 
+  date_col <span class="op">=</span> <span class="va">date_of_onset</span>, 
+  floor_date_week <span class="op">=</span> <span class="cn">TRUE</span>, 
+  label_weeks <span class="op">=</span> <span class="cn">TRUE</span>,
+  sec_date_axis <span class="op">=</span> <span class="cn">TRUE</span>,
+  date_breaks <span class="op">=</span> <span class="st">"6 weeks"</span>, 
+  date_lab <span class="op">=</span> <span class="st">"Week of onset"</span>, 
+  y_lab <span class="op">=</span> <span class="st">"Incidence"</span>
+<span class="op">)</span></code></pre></div>
+<p><img src="epicurves_files/figure-html/unnamed-chunk-5-1.png" width="768"></p>
+<p>If you want to display more week labels and avoid overlapping, you can use the <code>dodge_x_labs</code> helper function:</p>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/plot_epicurve.html">plot_epicurve</a></span><span class="op">(</span>
+  <span class="va">df_ebola</span>, 
+  date_col <span class="op">=</span> <span class="va">date_of_onset</span>, 
+  floor_date_week <span class="op">=</span> <span class="cn">TRUE</span>,
+  label_weeks <span class="op">=</span> <span class="cn">TRUE</span>,
+  sec_date_axis <span class="op">=</span> <span class="cn">TRUE</span>,
+  date_breaks <span class="op">=</span> <span class="st">"1 week"</span>, 
+  date_lab <span class="op">=</span> <span class="st">"Week of onset"</span>, 
+  y_lab <span class="op">=</span> <span class="st">"Incidence"</span>
+<span class="op">)</span> <span class="op">+</span>
+  <span class="fu">dodge_x_labs</span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p><img src="epicurves_files/figure-html/unnamed-chunk-6-1.png" width="768"></p>
+<p>Sometimes during epidemics a week or two may pass with no cases reported. By default this would not appear on the epicurve as there is no data for the latest week. However you may want to explicitly show this on the graphic to effectively communicate that the data is up-to-date and there are 0 cases in the latest week(s). To do this add a <code>date_max</code> argument. This will force the date axis to extend to that point:</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/plot_epicurve.html">plot_epicurve</a></span><span class="op">(</span>
+  <span class="va">df_ebola</span>, 
+  date_col <span class="op">=</span> <span class="va">date_of_onset</span>, 
+  floor_date_week <span class="op">=</span> <span class="cn">TRUE</span>,
+  label_weeks <span class="op">=</span> <span class="cn">TRUE</span>,
+  sec_date_axis <span class="op">=</span> <span class="cn">TRUE</span>,
+  date_max <span class="op">=</span> <span class="st">"2015-06-01"</span>, <span class="co"># extend axis to June 2015</span>
+  date_breaks <span class="op">=</span> <span class="st">"1 week"</span>, 
+  date_lab <span class="op">=</span> <span class="st">"Week of onset"</span>, 
+  y_lab <span class="op">=</span> <span class="st">"Incidence"</span>
+<span class="op">)</span> <span class="op">+</span>
+  <span class="fu">dodge_x_labs</span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<p><img src="epicurves_files/figure-html/unnamed-chunk-7-1.png" width="768"></p>
+</div>
 <div id="grouping-data" class="section level3">
 <h3 class="hasAnchor">
 <a href="#grouping-data" class="anchor"></a>Grouping Data</h3>
 <p>You may want to visualise a third variable by filling the columns with varying colours. We can do this by adding a <code>group_col</code> argument.</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/plot_epicurve.html">plot_epicurve</a></span><span class="op">(</span>
   <span class="va">df_ebola</span>, 
   date_col <span class="op">=</span> <span class="va">date_of_onset</span>, 
@@ -191,9 +213,9 @@
   y_lab <span class="op">=</span> <span class="st">"Incidence"</span>,
   group_lab <span class="op">=</span> <span class="st">"Outcome"</span>
 <span class="op">)</span></code></pre></div>
-<p><img src="epicurves_files/figure-html/unnamed-chunk-7-1.png" width="768"></p>
+<p><img src="epicurves_files/figure-html/unnamed-chunk-8-1.png" width="768"></p>
 <p>By default, <code>NA</code>s will be plotted with a grey colour. You can change this with the <code>group_na_colour</code> argument. Alternatively, you may want to recode <code>NA</code>s in your data to a more meaningful label. Because the <code>outcome</code> column in this dataset is a factor, we can recode <code>NA</code>s with <code><a href="https://forcats.tidyverse.org/reference/fct_explicit_na.html">forcats::fct_explicit_na</a></code>.</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">df_ebola</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>outcome <span class="op">=</span> <span class="fu">forcats</span><span class="fu">::</span><span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_explicit_na.html">fct_explicit_na</a></span><span class="op">(</span><span class="va">outcome</span>, <span class="st">"Unknown"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="../reference/plot_epicurve.html">plot_epicurve</a></span><span class="op">(</span>
@@ -206,14 +228,14 @@
     y_lab <span class="op">=</span> <span class="st">"Incidence"</span>,
     group_lab <span class="op">=</span> <span class="st">"Outcome"</span>
   <span class="op">)</span></code></pre></div>
-<p><img src="epicurves_files/figure-html/unnamed-chunk-8-1.png" width="768"></p>
+<p><img src="epicurves_files/figure-html/unnamed-chunk-9-1.png" width="768"></p>
 <p>Note: here we ‘pipe’ the modified dataset into the first argument of the <code>plot_epicurve</code> function.</p>
 </div>
 <div id="adding-proportion-lines" class="section level3">
 <h3 class="hasAnchor">
 <a href="#adding-proportion-lines" class="anchor"></a>Adding proportion lines</h3>
 <p>It can be useful to visualise a proportion or ratio over time on top of the epicurve, case fatality ratio being a good example. This can be done with <code>plot_epicurve</code> by providing a proportion column along with the numerator and denominator values. To plot the CFR here we would use the <code>outcome</code> column with a numerator of <code>"Death"</code> and a denominator of <code><a href="https://rdrr.io/r/base/c.html">c("Death", "Recover")</a></code> (ignoring unknown outcomes in the calculation):</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">df_ebola</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>outcome <span class="op">=</span> <span class="fu">forcats</span><span class="fu">::</span><span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_explicit_na.html">fct_explicit_na</a></span><span class="op">(</span><span class="va">outcome</span>, <span class="st">"Unknown"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="../reference/plot_epicurve.html">plot_epicurve</a></span><span class="op">(</span>
@@ -230,14 +252,14 @@
     group_lab <span class="op">=</span> <span class="st">"Outcome"</span>,
     prop_lab <span class="op">=</span> <span class="st">"CFR"</span>
   <span class="op">)</span></code></pre></div>
-<p><img src="epicurves_files/figure-html/unnamed-chunk-9-1.png" width="768"></p>
+<p><img src="epicurves_files/figure-html/unnamed-chunk-10-1.png" width="768"></p>
 <p>See also: <code>prop_line_colour</code> and <code>prop_line_size</code> argument to modify the colour and line thickness, respectively.</p>
 </div>
 <div id="faceting" class="section level3">
 <h3 class="hasAnchor">
 <a href="#faceting" class="anchor"></a>Faceting</h3>
 <p>Facets can be used to split the epicurves by a categorical variable, often a location. In this case we can facet by <code>hospital</code> simply by adding a <code>facet_col = hospital</code> argument. We also set the facet columns to 2 and reduce the CFR line width due to smaller plot sizes:</p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">df_ebola</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>outcome <span class="op">=</span> <span class="fu">forcats</span><span class="fu">::</span><span class="fu"><a href="https://forcats.tidyverse.org/reference/fct_explicit_na.html">fct_explicit_na</a></span><span class="op">(</span><span class="va">outcome</span>, <span class="st">"Unknown"</span><span class="op">)</span><span class="op">)</span> <span class="op">%&gt;%</span> 
   <span class="fu"><a href="../reference/plot_epicurve.html">plot_epicurve</a></span><span class="op">(</span>
@@ -259,13 +281,13 @@
     group_lab <span class="op">=</span> <span class="st">"Outcome"</span>,
     prop_lab <span class="op">=</span> <span class="st">"CFR"</span>
   <span class="op">)</span></code></pre></div>
-<p><img src="epicurves_files/figure-html/unnamed-chunk-10-1.png" width="768"></p>
+<p><img src="epicurves_files/figure-html/unnamed-chunk-11-1.png" width="768"></p>
 </div>
 <div id="theming" class="section level3">
 <h3 class="hasAnchor">
 <a href="#theming" class="anchor"></a>Theming</h3>
 <p>Although <code>plot_epicurve</code> has built-in theme defaults, because the function returns a ggplot object, you can easily reset any default by adding your own themes, palettes etc to the object:</p>
-<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="http://github.com/hrbrmstr/hrbrthemes">hrbrthemes</a></span><span class="op">)</span> <span class="co"># install.packages("hrbrthemes") for additional ggplot2 themes</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/EmilHvitfeldt/paletteer">paletteer</a></span><span class="op">)</span> <span class="co"># install.packages("paletteer") access colour palettes from several different packages</span>
 
@@ -281,7 +303,7 @@
     prop_line_size <span class="op">=</span> <span class="fl">0.5</span>,
     floor_date_week <span class="op">=</span> <span class="cn">TRUE</span>, 
     label_weeks <span class="op">=</span> <span class="cn">TRUE</span>,
-    date_breaks <span class="op">=</span> <span class="st">"3 weeks"</span>, 
+    date_breaks <span class="op">=</span> <span class="st">"4 weeks"</span>, 
     sec_date_axis <span class="op">=</span> <span class="cn">TRUE</span>,
     date_lab <span class="op">=</span> <span class="st">"Week of onset"</span>, 
     y_lab <span class="op">=</span> <span class="st">"Incidence"</span>,
@@ -295,7 +317,7 @@
     panel.grid.minor.x <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_blank</a></span><span class="op">(</span><span class="op">)</span>, 
     axis.title.y <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_text</a></span><span class="op">(</span>hjust <span class="op">=</span> <span class="fl">.5</span><span class="op">)</span>
   <span class="op">)</span></code></pre></div>
-<p><img src="epicurves_files/figure-html/unnamed-chunk-11-1.png" width="768"></p>
+<p><img src="epicurves_files/figure-html/unnamed-chunk-12-1.png" width="768"></p>
 </div>
   </div>
 

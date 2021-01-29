@@ -21,7 +21,7 @@ fig.retina = 2
 
 The `plot_pyramid` function can be used for plotting age pyramids split by gender. It is designed to work with un-aggregated data, i.e. patient level linelist data.
 
-We'll use the influenza A H7N9 dataset from the [`{outbreaks}`](http://www.repidemicsconsortium.org/outbreaks/) package for our first example.
+We'll use the influenza A H7N9 dataset from the [`{outbreaks}`](http://www.repidemicsconsortium.org/outbreaks/) package for our examples.
 
 ```{r setup}
 library(dplyr)

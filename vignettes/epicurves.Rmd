@@ -49,48 +49,20 @@ plot_epicurve(
 )
 ```
 
+### Working with dates and weeks
 
-A note of default date labels: commonly epidemic curves are plotted by week, not day. As such, default date labels are set as ISO Week (00-53) at an interval of 2 weeks. This default is not appropriate for the daily data we have supplied, but we can fix this with built-in function arguments...
-
-Firstly we can add a `floor_date_week = TRUE` argument to group all dates to the first monday of the ISO Week they fall in (this is required for ggplot weekly tick marks to align properly with the columns). We also add some more informative axis labels:
-
-```{r}
-plot_epicurve(
-  df_ebola, 
-  date_col = date_of_onset, 
-  floor_date_week = TRUE, 
-  label_weeks = TRUE,
-  date_lab = "Week of onset", 
-  y_lab = "Incidence"
-)
-```
-
-We can change the date break intervals with the `date_breaks` argument:
+Commonly incidence is plotted by week, not day. Here we have daily data but we can ask `plot_epicurve` to re-calculate incidence by week instead by setting `floor_date_week = TRUE`. You can choose the first day of the week with `week_start` (defaults to 1 (Monday)). Finally we can set date axis labels to the week number rather than date.
 
 ```{r}
 plot_epicurve(
   df_ebola, 
   date_col = date_of_onset, 
   floor_date_week = TRUE, 
-  date_breaks = "3 weeks", 
+  week_start = 1,
+  label_weeks = TRUE,
   date_lab = "Week of onset", 
   y_lab = "Incidence"
 )
-```
-
-If you want to display more week labels but avoid overlapping, you can use the `dodge_x_labs` helper function:
-
-```{r}
-plot_epicurve(
-  df_ebola, 
-  date_col = date_of_onset, 
-  floor_date_week = TRUE,
-  label_weeks = TRUE,
-  date_breaks = "1 week", 
-  date_lab = "Week of onset", 
-  y_lab = "Incidence"
-) +
-  dodge_x_labs()
 ```
 
 Since week numbers alone don't give us any information about the year they relate to, it can be useful to add a secondary date axis to display more standard date labels. This can be done with the `sec_date_axis = TRUE` argument:
@@ -105,6 +77,54 @@ plot_epicurve(
   date_lab = "Week of onset", 
   y_lab = "Incidence"
 )
+```
+
+Change the date break intervals with the `date_breaks` argument:
+
+```{r}
+plot_epicurve(
+  df_ebola, 
+  date_col = date_of_onset, 
+  floor_date_week = TRUE, 
+  label_weeks = TRUE,
+  sec_date_axis = TRUE,
+  date_breaks = "6 weeks", 
+  date_lab = "Week of onset", 
+  y_lab = "Incidence"
+)
+```
+
+If you want to display more week labels and avoid overlapping, you can use the `dodge_x_labs` helper function:
+
+```{r}
+plot_epicurve(
+  df_ebola, 
+  date_col = date_of_onset, 
+  floor_date_week = TRUE,
+  label_weeks = TRUE,
+  sec_date_axis = TRUE,
+  date_breaks = "1 week", 
+  date_lab = "Week of onset", 
+  y_lab = "Incidence"
+) +
+  dodge_x_labs()
+```
+
+Sometimes during epidemics a week or two may pass with no cases reported. By default this would not appear on the epicurve as there is no data for the latest week. However you may want to explicitly show this on the graphic to effectively communicate that the data is up-to-date and there are 0 cases in the latest week(s). To do this add a `date_max` argument. This will force the date axis to extend to that point:
+
+```{r}
+plot_epicurve(
+  df_ebola, 
+  date_col = date_of_onset, 
+  floor_date_week = TRUE,
+  label_weeks = TRUE,
+  sec_date_axis = TRUE,
+  date_max = "2015-06-01", # extend axis to June 2015
+  date_breaks = "1 week", 
+  date_lab = "Week of onset", 
+  y_lab = "Incidence"
+) +
+  dodge_x_labs()
 ```
 
 ### Grouping Data
@@ -218,7 +238,7 @@ df_ebola %>%
     prop_line_size = 0.5,
     floor_date_week = TRUE, 
     label_weeks = TRUE,
-    date_breaks = "3 weeks", 
+    date_breaks = "4 weeks", 
     sec_date_axis = TRUE,
     date_lab = "Week of onset", 
     y_lab = "Incidence",

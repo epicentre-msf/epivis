@@ -1,14 +1,15 @@
 
 #' Plot Age/Sex Pyramids
 #'
-#' @param df unaggregated dataframe with a minumum of age and gender variables
+#' @param df un-aggregated dataframe with a minimum of age and gender variables
 #' @param age_col
 #' @param gender_col
+#' @param gender_levels
+#' @param facet_col
 #' @param make_age_groups
 #' @param age_breaks
 #' @param age_labels
 #' @param drop_age_levels
-#' @param gender_levels
 #' @param gender_labs
 #' @param x_lab
 #' @param y_lab
@@ -18,26 +19,38 @@
 #' @param lab_in_col
 #' @param lab_out_col
 #' @param lab_nudge_factor
-#' @param add_missing_cap
 #' @param facet_col
 #' @param facet_nrow
 #' @param facet_ncol
 #' @param facet_scales
 #' @param facet_labs
 #' @param facet_lab_pos
+#' @param add_missing_cap
 #'
 #' @return a ggplot object
+#'
+#' @example
+#'
+#' df_flu <- outbreaks::fluH7N9_china_2013
+#'
+#' plot_pyramid(
+#'   df = df_flu,
+#'   age_col = age,
+#'   gender_col = gender,
+#'   gender_levels = c("m", "f")
+#' )
+#'
 #' @export
 plot_pyramid <- function(
   df,
   age_col,
   gender_col,
+  gender_levels,
   facet_col = NULL,
   make_age_groups = TRUE,
   age_breaks = c(seq(0, 80, 10), Inf),
   age_labels = label_breaks(age_breaks),
   drop_age_levels = FALSE,
-  gender_levels,
   gender_labs = NULL,
   x_lab = waiver(),
   y_lab = waiver(),
@@ -47,12 +60,12 @@ plot_pyramid <- function(
   lab_in_col = "white",
   lab_out_col = "grey30",
   lab_nudge_factor = 5,
-  add_missing_cap = TRUE,
   facet_nrow = NULL,
   facet_ncol = NULL,
   facet_scales = "fixed",
   facet_labs = label_wrap_gen(width = 25),
-  facet_lab_pos = "top"
+  facet_lab_pos = "top",
+  add_missing_cap = TRUE
 ) {
 
   if (length(gender_levels) != 2) {
