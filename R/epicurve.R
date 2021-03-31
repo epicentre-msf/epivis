@@ -71,8 +71,8 @@ plot_epicurve <- function(df,
                           floor_date_week = FALSE,
                           label_weeks = FALSE,
                           week_start = 1,
-                          date_breaks = "3 weeks",
-                          date_labels = "%V",
+                          date_breaks = waiver(),
+                          date_labels = waiver(),
                           date_max = NULL,
                           sec_date_axis = FALSE,
                           facet_nrow = NULL,
@@ -181,11 +181,11 @@ plot_epicurve <- function(df,
         coord_cartesian(xlim = c(x_min, x_max))
     } else {
       p <- p +
-        scale_x_date(breaks = x_breaks, labels = x_labs, expand = expansion(mult = c(0.01, 0.01))) +
+        scale_x_date(breaks = x_breaks, labels = x_labs) + # , expand = expansion(mult = c(0.01, 0.01))
         coord_cartesian(xlim = c(x_min, x_max))
     }
   } else {
-    p <- p + scale_x_date(expand = expansion(mult = c(0.01, 0.01))) +
+    p <- p + scale_x_date(date_breaks = date_breaks, date_labels = date_labels) + # expand = expansion(mult = c(0.01, 0.01))
       coord_cartesian(xlim = c(x_min, x_max))
   }
 
