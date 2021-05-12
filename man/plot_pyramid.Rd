@@ -8,12 +8,12 @@ plot_pyramid(
   df,
   age_col,
   gender_col,
+  gender_levels,
   facet_col = NULL,
   make_age_groups = TRUE,
   age_breaks = c(seq(0, 80, 10), Inf),
   age_labels = label_breaks(age_breaks),
   drop_age_levels = FALSE,
-  gender_levels,
   gender_labs = NULL,
   x_lab = waiver(),
   y_lab = waiver(),
@@ -23,18 +23,18 @@ plot_pyramid(
   lab_in_col = "white",
   lab_out_col = "grey30",
   lab_nudge_factor = 5,
-  add_missing_cap = TRUE,
   facet_nrow = NULL,
   facet_ncol = NULL,
   facet_scales = "fixed",
   facet_labs = label_wrap_gen(width = 25),
-  facet_lab_pos = "top"
+  facet_lab_pos = "top",
+  add_missing_cap = TRUE
 )
 }
 \arguments{
-\item{df}{unaggregated dataframe with a minumum of age and gender variables}
+\item{df}{un-aggregated dataframe with a minimum of age and gender variables}
 
-\item{facet_lab_pos}{}
+\item{add_missing_cap}{}
 }
 \value{
 a ggplot object

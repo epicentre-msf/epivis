@@ -16,9 +16,10 @@ plot_epicurve(
   prop_line_size = 0.8,
   floor_date_week = FALSE,
   label_weeks = FALSE,
-  week_start = "Monday",
-  date_breaks = "2 weeks",
-  date_labels = "\%V",
+  week_start = 1,
+  date_breaks = "1 week",
+  date_labels = waiver(),
+  date_max = NULL,
   sec_date_axis = FALSE,
   facet_nrow = NULL,
   facet_ncol = NULL,
@@ -58,11 +59,14 @@ default "non_missing" will take the sum of all non-missing values in the column.
 
 \item{label_weeks}{label primary date axis with week numbers? defaults to TRUE}
 
-\item{week_start}{day of week defined as the start of the week. defaults to "Monday" (ISO week standard)}
+\item{week_start}{day of week defined as the start of the week as integer 1-7 (Monday = 1, Sunday = 7). defaults to 1 (ISO week standard)}
 
 \item{date_breaks}{date break intervals passed to \code{\link[ggplot2:scale_date]{ggplot2::scale_x_date}}. defaults to "2 weeks"}
 
 \item{date_labels}{\code{\link[base:strptime]{base::strptime}} date label code passed to \code{\link[ggplot2:scale_date]{ggplot2::scale_x_date}}. defaults to "\\\%V" (ISO Week)}
+
+\item{date_max}{force a date axis max date. Useful for when a week has passed with no incidence and you want to show this
+on the plot. Setting date_max to the current week will force the date axis to show this week with no incidence.}
 
 \item{sec_date_axis}{plot a secondary date axis using default calculated ggplot2 date breaks and labels? defaults to FALSE}
 

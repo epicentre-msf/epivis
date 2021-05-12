@@ -71,7 +71,7 @@ plot_epicurve <- function(df,
                           floor_date_week = FALSE,
                           label_weeks = FALSE,
                           week_start = 1,
-                          date_breaks = waiver(),
+                          date_breaks = "1 week",
                           date_labels = waiver(),
                           date_max = NULL,
                           sec_date_axis = FALSE,
@@ -113,7 +113,6 @@ plot_epicurve <- function(df,
     if (is.null(prop_numer) | is.null(prop_denom))
       stop("Proportion numerator and demoninator values must be supplied")
     df_prop <- df %>%
-      dplyr::select(!!!g_vars_1) %>%
       dplyr::group_by(!!!g_vars_2) %>%
       dplyr::summarise(
         n = dplyr::n(),
@@ -177,16 +176,32 @@ plot_epicurve <- function(df,
 
     if (sec_date_axis) {
       p <- p +
-        scale_x_date(breaks = x_breaks, labels = x_labs, sec.axis = ggplot2::sec_axis(trans = ~ .)) +
-        coord_cartesian(xlim = c(x_min, x_max))
+        scale_x_date(
+          breaks = x_breaks,
+          labels = x_labs,
+          # limits = c(x_min-4, x_max-4),
+          # expand = expansion(mult = c(6, 6)),
+          sec.axis = ggplot2::sec_axis(trans = ~ .)
+        ) +
+        coord_cartesian(xlim = c(x_min-4, x_max+4))
     } else {
       p <- p +
-        scale_x_date(breaks = x_breaks, labels = x_labs) + # , expand = expansion(mult = c(0.01, 0.01))
-        coord_cartesian(xlim = c(x_min, x_max))
+        scale_x_date(
+          breaks = x_breaks,
+          labels = x_labs
+          # limits = c(x_min-4, x_max-4)
+          # expand = expansion(mult = c(6, 6))
+        ) +
+        coord_cartesian(xlim = c(x_min-4, x_max+4))
     }
   } else {
-    p <- p + scale_x_date(date_breaks = date_breaks, date_labels = date_labels) + # expand = expansion(mult = c(0.01, 0.01))
-      coord_cartesian(xlim = c(x_min, x_max))
+    p <- p + scale_x_date(
+      date_breaks = date_breaks,
+      date_labels = date_labels
+      # limits = c(x_min-4, x_max-4)
+      # expand = expansion(mult = c(6, 6))
+    ) +
+    coord_cartesian(xlim = c(x_min-1, x_max+1))
   }
 
   if (!missing(facet_col)) {
