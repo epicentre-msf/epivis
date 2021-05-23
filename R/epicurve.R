@@ -201,7 +201,7 @@ plot_epicurve <- function(df,
       # limits = c(x_min-4, x_max-4)
       # expand = expansion(mult = c(6, 6))
     ) +
-    coord_cartesian(xlim = c(x_min-1, x_max+1))
+    coord_cartesian(xlim = c(x_min-4, x_max+4))
   }
 
   if (!missing(facet_col)) {
