@@ -21,7 +21,8 @@ Imports:
     glue,
     ggthemes,
     lubridate,
-    classInt
+    classInt,
+    aweek
 RoxygenNote: 7.1.1
 Suggests: 
     knitr,
