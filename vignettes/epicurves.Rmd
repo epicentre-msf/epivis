@@ -211,7 +211,7 @@ Although `plot_epicurve` has built-in theme defaults, because the function retur
 
 ```{r}
 library(hrbrthemes) # install.packages("hrbrthemes") for additional ggplot2 themes
-library(paletteer) # install.packages("paletteer") access colour palettes from several different packages
+import_roboto_condensed() # import required font for theme below
 
 df_ebola %>% 
   mutate(outcome = forcats::fct_explicit_na(outcome, "Unknown")) %>% 
@@ -231,7 +231,7 @@ df_ebola %>%
     group_lab = "Outcome",
     prop_lab = "CFR"
   ) +
-  paletteer::scale_fill_paletteer_d(palette = "nord::afternoon_prarie") +
+  scale_fill_manual(values = c("#486090FF", "#6078A8FF", "#7890A8FF")) + 
   hrbrthemes::theme_ft_rc() + # requires Roboto Condensed font to be installed on your system
   theme(
     panel.grid.major.x = element_blank(), 

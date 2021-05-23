@@ -27,7 +27,9 @@ RoxygenNote: 7.1.1
 Suggests: 
     knitr,
     rmarkdown,
-    outbreaks
+    outbreaks,
+    forcats,
+    hrbrthemes
 VignetteBuilder: knitr
 URL: https://github.com/epicentre-msf/epivis
 BugReports: https://github.com/epicentre-msf/epivis/issues
