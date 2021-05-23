@@ -25,7 +25,8 @@ Imports:
 RoxygenNote: 7.1.1
 Suggests: 
     knitr,
-    rmarkdown
+    rmarkdown,
+    outbreaks
 VignetteBuilder: knitr
 URL: https://github.com/epicentre-msf/epivis
 BugReports: https://github.com/epicentre-msf/epivis/issues

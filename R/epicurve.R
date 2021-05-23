@@ -168,7 +168,7 @@ plot_epicurve <- function(df,
     }
 
     if (sec_date_axis) {
-      x_labs <- aweek::date2week(x_breaks, week_start = week_start, numeric = TRUE)
+      x_labs <- pad_number(aweek::date2week(x_breaks, week_start = week_start, numeric = TRUE))
       p <- p +
         scale_x_date(
           breaks = x_breaks,
