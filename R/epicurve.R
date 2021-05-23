@@ -71,7 +71,7 @@ plot_epicurve <- function(df,
                           floor_date_week = FALSE,
                           label_weeks = FALSE,
                           week_start = 1,
-                          date_breaks = "1 week",
+                          date_breaks,
                           date_labels = waiver(),
                           date_max = NULL,
                           sec_date_axis = FALSE,
@@ -92,17 +92,7 @@ plot_epicurve <- function(df,
   g_vars_2 <- dplyr::enquos(facet_col, date_col)
 
   if (floor_date_week) {
-    # c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday")
     stopifnot(week_start %in% 1:7)
-    #week_start <- match.arg(week_start, 1:7, several.ok = FALSE)
-    # week_start <- switch (week_start,
-    #                       Monday = 1,
-    #                       Tuesday = 2,
-    #                       Wednesday = 3,
-    #                       Thursday = 4,
-    #                       Friday = 5,
-    #                       Saturday = 6,
-    #                       Sunday = 7)
     df <- df %>% dplyr::mutate({{date_col}} := floor_week({{date_col}}, week_start = week_start))
   }
 
@@ -171,35 +161,35 @@ plot_epicurve <- function(df,
   )
 
   if (label_weeks) {
-    x_breaks <- seq.Date(x_min, x_max, by = date_breaks)
-    x_labs <- aweek::date2week(x_breaks, week_start = week_start, numeric = TRUE)
+    if (missing(date_breaks)) {
+      x_breaks <- seq.Date(x_min, x_max, length.out = 6)
+    } else {
+      x_breaks <- seq.Date(x_min, x_max, by = date_breaks)
+    }
 
     if (sec_date_axis) {
+      x_labs <- aweek::date2week(x_breaks, week_start = week_start, numeric = TRUE)
       p <- p +
         scale_x_date(
           breaks = x_breaks,
           labels = x_labs,
-          # limits = c(x_min-4, x_max-4),
-          # expand = expansion(mult = c(6, 6)),
           sec.axis = ggplot2::sec_axis(trans = ~ .)
         ) +
         coord_cartesian(xlim = c(x_min-4, x_max+4))
     } else {
+      x_labs <- aweek::date2week(x_breaks, week_start = week_start, floor_day = TRUE)
       p <- p +
         scale_x_date(
           breaks = x_breaks,
           labels = x_labs
-          # limits = c(x_min-4, x_max-4)
-          # expand = expansion(mult = c(6, 6))
         ) +
         coord_cartesian(xlim = c(x_min-4, x_max+4))
     }
   } else {
+    if (missing(date_breaks)) date_breaks <- waiver()
     p <- p + scale_x_date(
       date_breaks = date_breaks,
       date_labels = date_labels
-      # limits = c(x_min-4, x_max-4)
-      # expand = expansion(mult = c(6, 6))
     ) +
     coord_cartesian(xlim = c(x_min-4, x_max+4))
   }

@@ -65,7 +65,7 @@ plot_epicurve(
 )
 ```
 
-Since week numbers alone don't give us any information about the year they relate to, it can be useful to add a secondary date axis to display more standard date labels. This can be done with the `sec_date_axis = TRUE` argument:
+A secondary date axis can be added on top with default ggplot labels via `sec_date_axis = TRUE`. When this is done, week labels will be reduced to only the week number, as year information should be displayed in the top labels. You can control the number of date labels on the bottom axis with the `date_breaks` argument.
 
 ```{r}
 plot_epicurve(
@@ -73,26 +73,13 @@ plot_epicurve(
   date_col = date_of_onset, 
   floor_date_week = TRUE, 
   label_weeks = TRUE,
+  date_breaks = "3 weeks",
   sec_date_axis = TRUE,
   date_lab = "Week of onset", 
   y_lab = "Incidence"
 )
 ```
 
-Change the date break intervals with the `date_breaks` argument:
-
-```{r}
-plot_epicurve(
-  df_ebola, 
-  date_col = date_of_onset, 
-  floor_date_week = TRUE, 
-  label_weeks = TRUE,
-  sec_date_axis = TRUE,
-  date_breaks = "6 weeks", 
-  date_lab = "Week of onset", 
-  y_lab = "Incidence"
-)
-```
 
 If you want to display more week labels and avoid overlapping, you can use the `dodge_x_labs` helper function:
 
@@ -138,7 +125,7 @@ plot_epicurve(
   group_col = outcome,
   floor_date_week = TRUE,  
   label_weeks = TRUE,
-  sec_date_axis = TRUE,
+  sec_date_axis = FALSE,
   date_lab = "Week of onset", 
   y_lab = "Incidence",
   group_lab = "Outcome"
@@ -155,7 +142,7 @@ df_ebola %>%
     group_col = outcome,
     floor_date_week = TRUE,  
     label_weeks = TRUE,
-    sec_date_axis = TRUE,
+    sec_date_axis = FALSE,
     date_lab = "Week of onset", 
     y_lab = "Incidence",
     group_lab = "Outcome"
@@ -179,7 +166,7 @@ df_ebola %>%
     prop_denom = c("Death", "Recover"),
     floor_date_week = TRUE,  
     label_weeks = TRUE,
-    sec_date_axis = TRUE,
+    sec_date_axis = FALSE,
     date_lab = "Week of onset", 
     y_lab = "Incidence",
     group_lab = "Outcome",
@@ -209,7 +196,7 @@ df_ebola %>%
     prop_line_size = .5,
     floor_date_week = TRUE,  
     label_weeks = TRUE,
-    date_breaks = "4 weeks", 
+    date_breaks = "4 weeks",
     sec_date_axis = TRUE,
     date_lab = "Week of onset", 
     y_lab = "Incidence",
@@ -238,8 +225,7 @@ df_ebola %>%
     prop_line_size = 0.5,
     floor_date_week = TRUE, 
     label_weeks = TRUE,
-    date_breaks = "4 weeks", 
-    sec_date_axis = TRUE,
+    sec_date_axis = FALSE,
     date_lab = "Week of onset", 
     y_lab = "Incidence",
     group_lab = "Outcome",
