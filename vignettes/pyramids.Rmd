@@ -14,7 +14,7 @@ message = FALSE,
 collapse = TRUE,
 comment = "#>",
 fig.width = 8,
-fig.height = 6,
+fig.height = 4.5,
 fig.retina = 2
 )
 ```
@@ -145,7 +145,7 @@ plot_pyramid(
   lab_nudge_factor = 20, 
   lab_out_col = "white"
 ) +
-  hrbrthemes::theme_ft_rc(base_family = "IBM Plex Sans") +
+  hrbrthemes::theme_ft_rc() +
   labs(title = "Add a title", subtitle = "and a subtitle") +
   theme(
     legend.position = "top",

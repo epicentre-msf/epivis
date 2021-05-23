@@ -15,7 +15,7 @@ message = FALSE,
 collapse = TRUE,
 comment = "#>",
 fig.width = 8,
-fig.height = 6,
+fig.height = 4.5,
 fig.retina = 2
 )
 ```
@@ -211,7 +211,6 @@ Although `plot_epicurve` has built-in theme defaults, because the function retur
 
 ```{r}
 library(hrbrthemes) # install.packages("hrbrthemes") for additional ggplot2 themes
-import_roboto_condensed() # import required font for theme below
 
 df_ebola %>% 
   mutate(outcome = forcats::fct_explicit_na(outcome, "Unknown")) %>% 
@@ -232,7 +231,7 @@ df_ebola %>%
     prop_lab = "CFR"
   ) +
   scale_fill_manual(values = c("#486090FF", "#6078A8FF", "#7890A8FF")) + 
-  hrbrthemes::theme_ft_rc() + # requires Roboto Condensed font to be installed on your system
+  hrbrthemes::theme_ft_rc() + 
   theme(
     panel.grid.major.x = element_blank(), 
     panel.grid.minor.x = element_blank(), 
