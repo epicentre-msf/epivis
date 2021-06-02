@@ -133,21 +133,7 @@ plot_epicurve <- function(df,
     p <- p + geom_col(aes(fill = {{group_col}}), colour = "white", size = 0.2)
   }
 
-  # if(label_weeks) {
-  #   date_vec <- df %>% tidyr::drop_na({{date_col}}) %>% dplyr::arrange({{date_col}}) %>% dplyr::pull({{date_col}})
-  #   x_breaks <- seq.Date(date_vec[1], date_vec[length(date_vec)], by = date_breaks)
-  #   x_labs <- pad_number(aweek::date2week(x_breaks, week_start = week_start, numeric = TRUE))
-  # } else {
-  #   x_breaks <- waiver()
-  #   x_labs <- waiver()
-  # }
-
-  # if(sec_date_axis) {
-  #   p <- p + scale_x_date(breaks = x_breaks, labels = x_labs, sec.axis = ggplot2::sec_axis(trans = ~ .), expand = expansion(mult = c(0.01, 0.01)))
-  # } else {
-  #   p <- p + scale_x_date(breaks = x_breaks, labels = x_labs, expand = expansion(mult = c(0.01, 0.01)))
-  # }
-
+  # date breaks and labels ---------------------------------------------------
   x_min <- min(dplyr::pull(df, {{date_col}}), na.rm = TRUE)
 
   if (!missing(date_max) && floor_date_week) {
@@ -162,22 +148,32 @@ plot_epicurve <- function(df,
 
   if (label_weeks) {
     if (missing(date_breaks)) {
-      x_breaks <- seq.Date(x_min, x_max, length.out = 6)
+      # show ~10 week breaks by default
+      week_breaks <- df %>%
+        dplyr::distinct({{date_col}}) %>%
+        dplyr::arrange({{date_col}}) %>%
+        tidyr::complete({{date_col}} := seq.Date(min({{date_col}}), max({{date_col}}), by = "week")) %>%
+        dplyr::pull()
+      n_weeks <- length(week_breaks)
+      seq_by <- ceiling(n_weeks / 10)
+      x_breaks <- week_breaks[seq(1, n_weeks, by = seq_by)]
     } else {
       x_breaks <- seq.Date(x_min, x_max, by = date_breaks)
     }
 
     if (sec_date_axis) {
       x_labs <- pad_number(aweek::date2week(x_breaks, week_start = week_start, numeric = TRUE))
+      # x_labs <- label_weeks(x_breaks, week_start = week_start)
       p <- p +
         scale_x_date(
           breaks = x_breaks,
           labels = x_labs,
-          sec.axis = ggplot2::sec_axis(trans = ~ .)
+          sec.axis = ggplot2::sec_axis(trans = ~ ., labels = scales::label_date_short(sep = " "))
         ) +
         coord_cartesian(xlim = c(x_min-4, x_max+4))
     } else {
-      x_labs <- aweek::date2week(x_breaks, week_start = week_start, floor_day = TRUE)
+      # x_labs <- aweek::date2week(x_breaks, week_start = week_start, floor_day = TRUE)
+      x_labs <- label_weeks(x_breaks, week_start = week_start)
       p <- p +
         scale_x_date(
           breaks = x_breaks,
@@ -194,6 +190,7 @@ plot_epicurve <- function(df,
     coord_cartesian(xlim = c(x_min-4, x_max+4))
   }
 
+  # facets ---------------------------------------------------
   if (!missing(facet_col)) {
     facet_lab_pos <- match.arg(facet_lab_pos, c("top", "bottom", "left", "right"))
     p <- p + facet_wrap(
@@ -206,6 +203,7 @@ plot_epicurve <- function(df,
     )
   }
 
+  # proportion line ---------------------------------------------------
   if (!missing(prop_col)) {
     p <- p +
       geom_line(data = df_prop, aes(y = prop / scaling_factor, colour = prop_line_colour), key_glyph = "timeseries", size = prop_line_size) +
@@ -217,6 +215,7 @@ plot_epicurve <- function(df,
       scale_y_continuous(breaks = integer_breaks(), labels = scales::number_format(accuracy = 1), expand = expansion(mult = c(0, 0.05)))
   }
 
+  # theming ---------------------------------------------------
   p <- p +
     ggthemes::scale_fill_tableau(palette = "Tableau 10", na.value = group_na_colour) +
     labs(x = date_lab, y = y_lab, fill = group_lab, caption = caption, title = title, subtitle = subtitle) +

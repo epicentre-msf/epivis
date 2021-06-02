@@ -65,7 +65,7 @@ plot_epicurve(
 )
 ```
 
-A secondary date axis can be added on top with default ggplot labels via `sec_date_axis = TRUE`. When this is done, week labels will be reduced to only the week number, as year information should be displayed in the top labels. You can control the number of date labels on the bottom axis with the `date_breaks` argument.
+A secondary date axis can be added on top with default ggplot labels via `sec_date_axis = TRUE`. When this is done, week labels will be reduced to only the week number, as year information will be displayed in the top labels. You can control the number of date labels on the bottom axis with the `date_breaks` argument.
 
 ```{r}
 plot_epicurve(
@@ -125,7 +125,8 @@ plot_epicurve(
   group_col = outcome,
   floor_date_week = TRUE,  
   label_weeks = TRUE,
-  sec_date_axis = FALSE,
+  date_breaks = "2 weeks",
+  sec_date_axis = TRUE,
   date_lab = "Week of onset", 
   y_lab = "Incidence",
   group_lab = "Outcome"

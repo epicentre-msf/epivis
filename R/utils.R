@@ -91,6 +91,35 @@ frmt_num <- function(x, accuracy = 1) {
   scales::label_number_si(accuracy = accuracy)(x)
 }
 
+#' Format week labels for a chart axis
+#'
+#' Year labels will be displayed under the week label only for the first label
+#' and for the first week of any new years that appear in the week breaks
+#'
+#' @param weeks character vector of dates to make week labels from
+#' @param week_start day of week defined as the start of the week as integer 1-7 (Monday = 1, Sunday = 7). defaults to 1 (ISO week standard)
+#' @param french if TRUE labels week as 'S' for Semaine rather than 'W' for Week
+#' @param sep separator between week number and year for axis labels. defaults to "\n" (new line)
+#'
+#' @return character vector of week labels
+#' @export
+label_weeks <- function(weeks, week_start = 1, sep = "\n") {
+  week_labs <- as.character(aweek::date2week(weeks, week_start = week_start, floor_day = TRUE))
+  new_labs <- week_labs
+  new_labs[1] <- paste(stringr::str_sub(week_labs[1], start = -3), stringr::str_sub(week_labs[1], 1, 4), sep = "\n")
+  for (i in 2:length(week_labs)) {
+    week_year <- stringr::str_sub(week_labs[i], 1, 4)
+    prev_week_year <- stringr::str_sub(week_labs[i-1], 1, 4)
+    if (week_year == prev_week_year) {
+      new_labs[i] <- stringr::str_remove(week_labs[i], "\\d{4}-W")
+    } else {
+      new_labs[i] <- paste(stringr::str_sub(week_labs[i], start = -3), week_year, sep = sep)
+    }
+  }
+  if (stringr::str_detect(Sys.getlocale("LC_TIME"), "FR|French")) new_labs <- stringr::str_replace(new_labs, "W", "S")
+  return(new_labs)
+}
+
 #' Duplicate discrete axis labels
 #'
 #' @param label_trans

@@ -19,7 +19,7 @@ You can install the package from github with the `remotes` package:
 remotes::install_github("epicentre-msf/epivis")
 ```
 
-## Vignettes
+## Tutorials
 
 See package site for tutorial articles and function references:
 <https://epicentre-msf.github.io/epivis/>
