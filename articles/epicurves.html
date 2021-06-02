@@ -141,7 +141,7 @@
   y_lab <span class="op">=</span> <span class="st">"Incidence"</span>
 <span class="op">)</span></code></pre></div>
 <p><img src="epicurves_files/figure-html/unnamed-chunk-3-1.png" width="768"></p>
-<p>A secondary date axis can be added on top with default ggplot labels via <code>sec_date_axis = TRUE</code>. When this is done, week labels will be reduced to only the week number, as year information should be displayed in the top labels. You can control the number of date labels on the bottom axis with the <code>date_breaks</code> argument.</p>
+<p>A secondary date axis can be added on top with default ggplot labels via <code>sec_date_axis = TRUE</code>. When this is done, week labels will be reduced to only the week number, as year information will be displayed in the top labels. You can control the number of date labels on the bottom axis with the <code>date_breaks</code> argument.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/plot_epicurve.html">plot_epicurve</a></span><span class="op">(</span>
   <span class="va">df_ebola</span>, 
@@ -195,7 +195,8 @@
   group_col <span class="op">=</span> <span class="va">outcome</span>,
   floor_date_week <span class="op">=</span> <span class="cn">TRUE</span>,  
   label_weeks <span class="op">=</span> <span class="cn">TRUE</span>,
-  sec_date_axis <span class="op">=</span> <span class="cn">FALSE</span>,
+  date_breaks <span class="op">=</span> <span class="st">"2 weeks"</span>,
+  sec_date_axis <span class="op">=</span> <span class="cn">TRUE</span>,
   date_lab <span class="op">=</span> <span class="st">"Week of onset"</span>, 
   y_lab <span class="op">=</span> <span class="st">"Incidence"</span>,
   group_lab <span class="op">=</span> <span class="st">"Outcome"</span>
