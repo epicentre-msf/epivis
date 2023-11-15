@@ -136,15 +136,15 @@ plot_epicurve <- function(df,
   # date breaks and labels ---------------------------------------------------
   x_min <- min(dplyr::pull(df, {{date_col}}), na.rm = TRUE)
 
-  if (!missing(date_max) && floor_date_week) {
+  if (!is.null(date_max) && floor_date_week) {
     date_max <- floor_week(date_max, week_start = week_start)
   }
 
-  x_max <- dplyr::if_else(
-    missing(date_max),
-    max(dplyr::pull(df, {{date_col}}), na.rm = TRUE),
-    date_max
-  )
+  if (is.null(date_max)) {
+    x_max <- max(dplyr::pull(df, {{ date_col }}), na.rm = TRUE)
+  } else {
+    x_max <- date_max
+  }
 
   if (label_weeks) {
     if (missing(date_breaks)) {
