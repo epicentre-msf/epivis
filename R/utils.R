@@ -38,7 +38,13 @@ integer_breaks <- function(n = 5, ...) {
   return(fxn)
 }
 
-#' @noRd
+#' Wrapper function to dodge xAxis labels
+#' 
+#' Useful when you have overlapping labels on the xAxis.
+#' 
+#' @param n.dodge passed to [ggplot2::guide_axis]
+#' 
+#' @export
 dodge_x_labs <- function(n.dodge = 2) {
   ggplot2::guides(x = ggplot2::guide_axis(n.dodge = n.dodge))
 }
@@ -63,19 +69,18 @@ add_breaks <- function(x, n = 5, style = "jenks", lab_accuracy = 1, replace_Inf 
 
 #' Format break labels
 #'
-#' @param breaks
-#'
-#' @param lab_accuracy accuracy of labels, passed to [`scales::label_number_si`]
+#' @param breaks numeric vector of breaks
+#' @param lab_accuracy accuracy of labels, passed to [`scales::number`]
 #' @param replace_Inf if `Inf` is your final break, replace with a + sign in the label?
 #'
-#' @noRd
-label_breaks <- function(breaks, lab_accuracy = 1, replace_Inf = TRUE) {
+#' @export
+label_breaks <- function(breaks, lab_accuracy = .1, replace_Inf = TRUE) {
   labs <- sprintf(
     "%s-%s",
     frmt_num(breaks[1:length(breaks) - 1], accuracy = lab_accuracy),
     frmt_num(breaks[2:length(breaks)] - 1, accuracy = lab_accuracy)
   )
-  if(replace_Inf){
+  if (replace_Inf) {
     labs <- gsub("-Inf", "+", labs)
   }
   return(labs)
@@ -87,8 +92,11 @@ label_breaks <- function(breaks, lab_accuracy = 1, replace_Inf = TRUE) {
 #' @param accuracy accuracy of labels, passed to [`scales::label_number_si`]
 #'
 #' @noRd
-frmt_num <- function(x, accuracy = 1) {
-  scales::label_number_si(accuracy = accuracy)(x)
+frmt_num <- function(x, accuracy = .1) {
+  n <- scales::number(x, accuracy = accuracy, scale_cut = scales::cut_short_scale())
+  n <- stringr::str_remove(n, "\\.0+(?=[a-zA-Z])")
+  n <- stringr::str_remove(n, "\\.0+$")
+  n
 }
 
 #' Format week labels for a chart axis

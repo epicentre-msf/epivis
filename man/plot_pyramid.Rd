@@ -47,7 +47,7 @@ or a character/factor vector of age groups.}
 
 \item{age_breaks}{breaks to be used for binning a numerical \code{age_col}.}
 
-\item{age_labels}{break labels to accompany \code{age_breaks}. Defaults to \code{epivis:::label_breaks(age_breaks)}.}
+\item{age_labels}{break labels to accompany \code{age_breaks}. Defaults to \code{epivis::label_breaks(age_breaks)}.}
 
 \item{drop_age_levels}{should age groups with no observations be removed from the chart? Defaults to FALSE.}
 

@@ -9,7 +9,7 @@
 #' @param facet_col optional faceting variable name to split chart into small multiples.
 #' @param make_age_groups set to TRUE (default) if `age_col` is numeric and needs to be binned into groups.
 #' @param age_breaks breaks to be used for binning a numerical `age_col`.
-#' @param age_labels break labels to accompany `age_breaks`. Defaults to `epivis:::label_breaks(age_breaks)`.
+#' @param age_labels break labels to accompany `age_breaks`. Defaults to `epivis::label_breaks(age_breaks)`.
 #' @param drop_age_levels should age groups with no observations be removed from the chart? Defaults to FALSE.
 #' @param gender_labs optional labels for `gender_levels`
 #' @param x_lab optional label for the X axis.
