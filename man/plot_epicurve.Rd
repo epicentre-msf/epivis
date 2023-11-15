@@ -17,7 +17,7 @@ plot_epicurve(
   floor_date_week = FALSE,
   label_weeks = FALSE,
   week_start = 1,
-  date_breaks = "1 week",
+  date_breaks,
   date_labels = waiver(),
   date_max = NULL,
   sec_date_axis = FALSE,
@@ -36,7 +36,7 @@ plot_epicurve(
 )
 }
 \arguments{
-\item{df}{unaggregated dataframe with a minumum of a date column with a date or POSIX class}
+\item{df}{un-aggregated dataframe with a minumum of a date column with a date or POSIX class}
 
 \item{date_col}{date variable to plot incidence with. Must be provided.}
 

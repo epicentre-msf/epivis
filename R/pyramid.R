@@ -1,35 +1,38 @@
 
 #' Plot Age/Sex Pyramids
 #'
-#' @param df un-aggregated dataframe with a minimum of age and gender variables
-#' @param age_col
-#' @param gender_col
-#' @param gender_levels
-#' @param facet_col
-#' @param make_age_groups
-#' @param age_breaks
-#' @param age_labels
-#' @param drop_age_levels
-#' @param gender_labs
-#' @param x_lab
-#' @param y_lab
-#' @param colours
-#' @param show_data_labs
-#' @param lab_size
-#' @param lab_in_col
-#' @param lab_out_col
-#' @param lab_nudge_factor
-#' @param facet_col
-#' @param facet_nrow
-#' @param facet_ncol
-#' @param facet_scales
-#' @param facet_labs
-#' @param facet_lab_pos
-#' @param add_missing_cap
+#' @param df un-aggregated dataframe with a minimum of age and gender variables.
+#' @param age_col age variable name in `df`. Can be either a numeric vecotr of ages 
+#'  or a character/factor vector of age groups.
+#' @param gender_col gender variable name in `df` with levels indicating male or female.
+#' @param gender_levels length 2 character vector with male and female level in `gender_col`, respectively.
+#' @param facet_col optional faceting variable name to split chart into small multiples.
+#' @param make_age_groups set to TRUE (default) if `age_col` is numeric and needs to be binned into groups.
+#' @param age_breaks breaks to be used for binning a numerical `age_col`.
+#' @param age_labels break labels to accompany `age_breaks`. Defaults to `epivis:::label_breaks(age_breaks)`.
+#' @param drop_age_levels should age groups with no observations be removed from the chart? Defaults to FALSE.
+#' @param gender_labs optional labels for `gender_levels`
+#' @param x_lab optional label for the X axis.
+#' @param y_lab optional label for the Y axis.
+#' @param colours length 2 character vector of colours used for male and female, respectively.
+#' @param show_data_labs show data labels on chart? Defaults to FALSE.
+#' @param lab_size data labels size.
+#' @param lab_in_col data label colour when placed inside a bar.
+#' @param lab_out_col data label colour when placed outside a bar.
+#' @param lab_nudge_factor threshold for moving a data label outside a bar. Defaults to 5. 
+#'  Increasing the number increases the distance from the max value required to move a label outside the bar.
+#' @param facet_nrow nrow argument passed to [`ggplot2::facet_wrap`]
+#' @param facet_ncol ncol argument passed to [`ggplot2::facet_wrap`]
+#' @param facet_scales facet scales argument passed to [`ggplot2::facet_wrap`]. 
+#'  Should scales be fixed ("fixed", the default), free ("free"), or free in one dimension ("free_x", "free_y")?
+#' @param facet_labs facet labeller argument passed to [`ggplot2::facet_wrap`]. Defaults to [`label_wrap_gen(width = 25)`]
+#' @param facet_lab_pos facet label position argument passed to strip.position in [`ggplot2::facet_wrap`]. 
+#'  Defaults to "top". Options are `c("top", "bottom", "left", "right")`.
+#' @param add_missing_cap show missing data counts for `age_col` and `gender_col`? Defaults to TRUE.
 #'
 #' @return a ggplot object
 #'
-#' @example
+#' @examples
 #'
 #' df_flu <- outbreaks::fluH7N9_china_2013
 #'
@@ -152,19 +155,23 @@ plot_pyramid <- function(
   return(p)
 }
 
+#' @noRd 
 pyramid_brks <- function(x, n = 3) {
   brks <- pretty(0:max(abs(x)), n = n)
   c(-brks, brks)
 }
 
+#' @noRd
 pyramid_labs <- function(x) {
   scales::label_number_si()(abs(x))
 }
 
+#' @noRd
 pyramid_limits <- function(x) {
   c(-max(abs(x)), max(abs(x)))
 }
 
+#' @noRd
 pyramid_labs_pos <- function(x, f = 5) {
   dplyr::case_when(
     x > 0 & x < max(abs(x)) / f ~ -0.1,
@@ -174,6 +181,7 @@ pyramid_labs_pos <- function(x, f = 5) {
   )
 }
 
+#' @noRd
 pyramid_labs_colour <- function(x, f = 5, in_col = "white", out_col = "grey30") {
   dplyr::case_when(
     x > 0 & x < max(abs(x)) / f ~ out_col,

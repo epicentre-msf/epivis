@@ -1,10 +1,10 @@
 
 #' @importFrom magrittr %>%
-#' @export
+#' @noRd
 magrittr::`%>%`
 
 #' @importFrom magrittr %<>%
-#' @export
+#' @noRd
 magrittr::`%<>%`
 
 #' Re-set date to the first day of the week the date falls in
@@ -12,7 +12,7 @@ magrittr::`%<>%`
 #' @param date a date or something coercible by lubridate::as_date to a date
 #' @param week_start first day of the week to re-set to. 7 = Sunday, 1 = Monday.
 #'
-#' @export
+#' @noRd 
 floor_week <- function(date, week_start = 1) {
   lubridate::floor_date(lubridate::as_date(date), unit = "week", week_start = week_start)
 }
@@ -22,13 +22,13 @@ floor_week <- function(date, week_start = 1) {
 #' @param x numeric vector
 #' @param y 10 will round up to nearest 10, -10 down to nearest 10 etc
 #'
-#' @export
+#' @noRd
 rounder <- function(x, y) {
   if(y >= 0) { x + (y - x %% y)}
   else { x - (x %% abs(y))}
 }
 
-#' @export
+#' @noRd
 integer_breaks <- function(n = 5, ...) {
   fxn <- function(x) {
     breaks <- floor(pretty(x, n, ...))
@@ -38,7 +38,7 @@ integer_breaks <- function(n = 5, ...) {
   return(fxn)
 }
 
-#' @export
+#' @noRd
 dodge_x_labs <- function(n.dodge = 2) {
   ggplot2::guides(x = ggplot2::guide_axis(n.dodge = n.dodge))
 }
@@ -53,7 +53,7 @@ dodge_x_labs <- function(n.dodge = 2) {
 #' @param lab_accuracy accuracy of labels, passed to [`scales::label_number_si`]
 #' @param replace_Inf if `Inf` is your final break, replace with a + sign in the label?
 #'
-#' @export
+#' @noRd
 add_breaks <- function(x, n = 5, style = "jenks", lab_accuracy = 1, replace_Inf = TRUE) {
   style <- match.arg(style, c("fixed", "sd", "equal", "pretty", "quantile", "kmeans", "hclust", "bclust", "fisher", "jenks", "dpih", "headtails"), several.ok = FALSE)
   breaks <- classInt::classIntervals(x, n = n, style = style)
@@ -68,7 +68,7 @@ add_breaks <- function(x, n = 5, style = "jenks", lab_accuracy = 1, replace_Inf 
 #' @param lab_accuracy accuracy of labels, passed to [`scales::label_number_si`]
 #' @param replace_Inf if `Inf` is your final break, replace with a + sign in the label?
 #'
-#' @export
+#' @noRd
 label_breaks <- function(breaks, lab_accuracy = 1, replace_Inf = TRUE) {
   labs <- sprintf(
     "%s-%s",
@@ -86,7 +86,7 @@ label_breaks <- function(breaks, lab_accuracy = 1, replace_Inf = TRUE) {
 #' @param x a number to format
 #' @param accuracy accuracy of labels, passed to [`scales::label_number_si`]
 #'
-#' @export
+#' @noRd
 frmt_num <- function(x, accuracy = 1) {
   scales::label_number_si(accuracy = accuracy)(x)
 }
@@ -102,7 +102,7 @@ frmt_num <- function(x, accuracy = 1) {
 #' @param sep separator between week number and year for axis labels. defaults to "\n" (new line)
 #'
 #' @return character vector of week labels
-#' @export
+#' @noRd
 label_weeks <- function(weeks, week_start = 1, sep = "\n") {
   week_labs <- as.character(aweek::date2week(weeks, week_start = week_start, floor_day = TRUE))
   new_labs <- week_labs
@@ -122,10 +122,10 @@ label_weeks <- function(weeks, week_start = 1, sep = "\n") {
 
 #' Duplicate discrete axis labels
 #'
-#' @param label_trans
-#' @param ...
+#' @param label_trans label trans
+#' @param ... additional arguments passed to [ggplot2::guide_axis]
 #'
-#' @export
+#' @noRd
 guide_axis_label_trans <- function(label_trans = identity, ...) {
   axis_guide <- ggplot2::guide_axis(...)
   axis_guide$label_trans <- rlang::as_function(label_trans)
@@ -133,6 +133,7 @@ guide_axis_label_trans <- function(label_trans = identity, ...) {
   axis_guide
 }
 
+#' @noRd
 guide_train.guide_axis_trans <- function(x, ...) {
   trained <- NextMethod()
   trained$key$.label <- x$label_trans(trained$key$.label)
@@ -143,7 +144,7 @@ guide_train.guide_axis_trans <- function(x, ...) {
 #'
 #' @param x
 #'
-#' @export
+#' @noRd
 max_2 <- function(x) {
   x <- unique(x) %>% purrr::discard(is.na) %>% sort()
   n <- length(x)
@@ -156,12 +157,12 @@ max_2 <- function(x) {
 #'
 #' @param date
 #'
-#' @export
+#' @noRd
 get_prev_sunday <- function(date) {
   lubridate::floor_date(as.Date(date), unit = "week", week_start = 7)
 }
 
-#' @export
+#' @noRd
 pad_number <- function(x) {
   formatC(as.numeric(x), width = 2, format = "d", flag = "0")
 }

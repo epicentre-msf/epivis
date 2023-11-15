@@ -32,13 +32,73 @@ plot_pyramid(
 )
 }
 \arguments{
-\item{df}{un-aggregated dataframe with a minimum of age and gender variables}
+\item{df}{un-aggregated dataframe with a minimum of age and gender variables.}
 
-\item{add_missing_cap}{}
+\item{age_col}{age variable name in \code{df}. Can be either a numeric vecotr of ages
+or a character/factor vector of age groups.}
+
+\item{gender_col}{gender variable name in \code{df} with levels indicating male or female.}
+
+\item{gender_levels}{length 2 character vector with male and female level in \code{gender_col}, respectively.}
+
+\item{facet_col}{optional faceting variable name to split chart into small multiples.}
+
+\item{make_age_groups}{set to TRUE (default) if \code{age_col} is numeric and needs to be binned into groups.}
+
+\item{age_breaks}{breaks to be used for binning a numerical \code{age_col}.}
+
+\item{age_labels}{break labels to accompany \code{age_breaks}. Defaults to \code{epivis:::label_breaks(age_breaks)}.}
+
+\item{drop_age_levels}{should age groups with no observations be removed from the chart? Defaults to FALSE.}
+
+\item{gender_labs}{optional labels for \code{gender_levels}}
+
+\item{x_lab}{optional label for the X axis.}
+
+\item{y_lab}{optional label for the Y axis.}
+
+\item{colours}{length 2 character vector of colours used for male and female, respectively.}
+
+\item{show_data_labs}{show data labels on chart? Defaults to FALSE.}
+
+\item{lab_size}{data labels size.}
+
+\item{lab_in_col}{data label colour when placed inside a bar.}
+
+\item{lab_out_col}{data label colour when placed outside a bar.}
+
+\item{lab_nudge_factor}{threshold for moving a data label outside a bar. Defaults to 5.
+Increasing the number increases the distance from the max value required to move a label outside the bar.}
+
+\item{facet_nrow}{nrow argument passed to \code{\link[ggplot2:facet_wrap]{ggplot2::facet_wrap}}}
+
+\item{facet_ncol}{ncol argument passed to \code{\link[ggplot2:facet_wrap]{ggplot2::facet_wrap}}}
+
+\item{facet_scales}{facet scales argument passed to \code{\link[ggplot2:facet_wrap]{ggplot2::facet_wrap}}.
+Should scales be fixed ("fixed", the default), free ("free"), or free in one dimension ("free_x", "free_y")?}
+
+\item{facet_labs}{facet labeller argument passed to \code{\link[ggplot2:facet_wrap]{ggplot2::facet_wrap}}. Defaults to \code{\link{label_wrap_gen(width = 25)}}}
+
+\item{facet_lab_pos}{facet label position argument passed to strip.position in \code{\link[ggplot2:facet_wrap]{ggplot2::facet_wrap}}.
+Defaults to "top". Options are \code{c("top", "bottom", "left", "right")}.}
+
+\item{add_missing_cap}{show missing data counts for \code{age_col} and \code{gender_col}? Defaults to TRUE.}
 }
 \value{
 a ggplot object
 }
 \description{
 Plot Age/Sex Pyramids
+}
+\examples{
+
+df_flu <- outbreaks::fluH7N9_china_2013
+
+plot_pyramid(
+  df = df_flu,
+  age_col = age,
+  gender_col = gender,
+  gender_levels = c("m", "f")
+)
+
 }

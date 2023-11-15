@@ -4,7 +4,7 @@
 #' Helper function to plot epidemic curves with ggplot2 with options for
 #' grouping data, facets and proportion lines.
 #'
-#' @param df unaggregated dataframe with a minumum of a date column with a date or POSIX class
+#' @param df un-aggregated dataframe with a minumum of a date column with a date or POSIX class
 #' @param date_col date variable to plot incidence with. Must be provided.
 #' @param group_col optional grouping variable to be applied to the fill aesthetic of columns
 #' @param facet_col optional faceting variable to split chart into small multiples
