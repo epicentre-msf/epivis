@@ -12,6 +12,11 @@ authors:
 
 reference:
 - title: Plotting functions
-  desc:  Helper functions to plot graphics
+  desc:  Functions to make graphics
   contents:
   - starts_with("plot")
+- title: Utility functions
+  desc: Helpers to make your life easier
+  contents:
+  - label_breaks
+  - dodge_x_labels
