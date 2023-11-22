@@ -74,7 +74,9 @@ on the plot. Setting date_max to the current week will force the date axis to sh
 
 \item{facet_ncol}{ncol argument passed to \code{\link[ggplot2:facet_wrap]{ggplot2::facet_wrap}}}
 
-\item{facet_labs}{facet labeller argument passed to \code{\link[ggplot2:facet_wrap]{ggplot2::facet_wrap}}. Defaults to \code{\link{label_wrap_gen(width = 25)}}}
+\item{facet_scales}{value for the \code{scales} argument passed to \code{\link[ggplot2:facet_wrap]{ggplot2::facet_wrap}}. Default to \code{fixed}.}
+
+\item{facet_labs}{facet labeller argument passed to \code{\link[ggplot2:facet_wrap]{ggplot2::facet_wrap}}. Defaults to \code{\link{label_wrap_gen(width = 25)}}.}
 
 \item{facet_lab_pos}{facet label position argument passed to strip.position in \code{\link[ggplot2:facet_wrap]{ggplot2::facet_wrap}}. defaults to "top". Options are \code{c("top", "bottom", "left", "right")}}
 
@@ -101,6 +103,7 @@ grouping data, facets and proportion lines.
 }
 \examples{
 
+library(dplyr)
 df_ebola <- dplyr::as_tibble(outbreaks::ebola_sim_clean$linelist)
 
 df_ebola \%>\%

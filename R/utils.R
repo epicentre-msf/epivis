@@ -12,7 +12,7 @@ magrittr::`%<>%`
 #' @param date a date or something coercible by lubridate::as_date to a date
 #' @param week_start first day of the week to re-set to. 7 = Sunday, 1 = Monday.
 #'
-#' @noRd 
+#' @noRd
 floor_week <- function(date, week_start = 1) {
   lubridate::floor_date(lubridate::as_date(date), unit = "week", week_start = week_start)
 }
@@ -39,11 +39,11 @@ integer_breaks <- function(n = 5, ...) {
 }
 
 #' Wrapper function to dodge xAxis labels
-#' 
+#'
 #' Useful when you have overlapping labels on the xAxis.
-#' 
+#'
 #' @param n.dodge passed to [ggplot2::guide_axis]
-#' 
+#'
 #' @export
 dodge_x_labs <- function(n.dodge = 2) {
   ggplot2::guides(x = ggplot2::guide_axis(n.dodge = n.dodge))

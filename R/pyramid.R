@@ -2,7 +2,7 @@
 #' Plot Age/Sex Pyramids
 #'
 #' @param df un-aggregated dataframe with a minimum of age and gender variables.
-#' @param age_col age variable name in `df`. Can be either a numeric vecotr of ages 
+#' @param age_col age variable name in `df`. Can be either a numeric vecotr of ages
 #'  or a character/factor vector of age groups.
 #' @param gender_col gender variable name in `df` with levels indicating male or female.
 #' @param gender_levels length 2 character vector with male and female level in `gender_col`, respectively.
@@ -19,14 +19,14 @@
 #' @param lab_size data labels size.
 #' @param lab_in_col data label colour when placed inside a bar.
 #' @param lab_out_col data label colour when placed outside a bar.
-#' @param lab_nudge_factor threshold for moving a data label outside a bar. Defaults to 5. 
+#' @param lab_nudge_factor threshold for moving a data label outside a bar. Defaults to 5.
 #'  Increasing the number increases the distance from the max value required to move a label outside the bar.
-#' @param facet_nrow nrow argument passed to [`ggplot2::facet_wrap`]
-#' @param facet_ncol ncol argument passed to [`ggplot2::facet_wrap`]
-#' @param facet_scales facet scales argument passed to [`ggplot2::facet_wrap`]. 
+#' @param facet_nrow nrow argument passed to [`ggplot2::facet_wrap`].
+#' @param facet_ncol ncol argument passed to [`ggplot2::facet_wrap`].
+#' @param facet_scales facet scales argument passed to [`ggplot2::facet_wrap`].
 #'  Should scales be fixed ("fixed", the default), free ("free"), or free in one dimension ("free_x", "free_y")?
-#' @param facet_labs facet labeller argument passed to [`ggplot2::facet_wrap`]. Defaults to [`label_wrap_gen(width = 25)`]
-#' @param facet_lab_pos facet label position argument passed to strip.position in [`ggplot2::facet_wrap`]. 
+#' @param facet_labs facet labeller argument passed to [`ggplot2::facet_wrap`]. Defaults to [`label_wrap_gen(width = 25)`].
+#' @param facet_lab_pos facet label position argument passed to strip.position in [`ggplot2::facet_wrap`].
 #'  Defaults to "top". Options are `c("top", "bottom", "left", "right")`.
 #' @param add_missing_cap show missing data counts for `age_col` and `gender_col`? Defaults to TRUE.
 #'
@@ -34,6 +34,7 @@
 #'
 #' @examples
 #'
+#' suppressMessages(library(dplyr))
 #' df_flu <- outbreaks::fluH7N9_china_2013
 #'
 #' plot_pyramid(
@@ -44,31 +45,32 @@
 #' )
 #'
 #' @export
+#'
 plot_pyramid <- function(
-  df,
-  age_col,
-  gender_col,
-  gender_levels,
-  facet_col = NULL,
-  make_age_groups = TRUE,
-  age_breaks = c(seq(0, 80, 10), Inf),
-  age_labels = label_breaks(age_breaks),
-  drop_age_levels = FALSE,
-  gender_labs = NULL,
-  x_lab = waiver(),
-  y_lab = waiver(),
-  colours = c("#486090FF", "#7890A8FF"),
-  show_data_labs = FALSE,
-  lab_size = 4,
-  lab_in_col = "white",
-  lab_out_col = "grey30",
-  lab_nudge_factor = 5,
-  facet_nrow = NULL,
-  facet_ncol = NULL,
-  facet_scales = "fixed",
-  facet_labs = label_wrap_gen(width = 25),
-  facet_lab_pos = "top",
-  add_missing_cap = TRUE
+    df,
+    age_col,
+    gender_col,
+    gender_levels,
+    facet_col = NULL,
+    make_age_groups = TRUE,
+    age_breaks = c(seq(0, 80, 10), Inf),
+    age_labels = label_breaks(age_breaks),
+    drop_age_levels = FALSE,
+    gender_labs = NULL,
+    x_lab = waiver(),
+    y_lab = waiver(),
+    colours = c("#486090FF", "#7890A8FF"),
+    show_data_labs = FALSE,
+    lab_size = 4,
+    lab_in_col = "white",
+    lab_out_col = "grey30",
+    lab_nudge_factor = 5,
+    facet_nrow = NULL,
+    facet_ncol = NULL,
+    facet_scales = "fixed",
+    facet_labs = label_wrap_gen(width = 25),
+    facet_lab_pos = "top",
+    add_missing_cap = TRUE
 ) {
 
   if (length(gender_levels) != 2) {
@@ -88,23 +90,30 @@ plot_pyramid <- function(
   if (make_age_groups) {
     df_plot <- df %>% mutate(age_group = suppressWarnings(as.numeric(as.character({{age_col}}))))
     missing_age <- sum(is.na(df_plot$age_group))
-    df_plot %<>%
+    df_plot <- df_plot %>%
       tidyr::drop_na(age_group) %>%
-      mutate(age_group = cut(age_group, breaks = age_breaks, labels = age_labels, right = FALSE, include.lowest = TRUE))
+      dplyr::mutate(age_group = cut(age_group, breaks = age_breaks, labels = age_labels, right = FALSE, include.lowest = TRUE))
 
   } else {
     if (!class(dplyr::pull(df, {{age_col}})) %in% c("factor", "character")) {
       stop("If not creating age groups with `make_age_groups = TRUE` from a numeric age vector, `age_col` should be a factor or a character vector")
     }
+
+    #needs to define df_plot if make_age_groups = FALSE
+    df_plot <- df %>%
+      tidyr::drop_na(age_group)
+
+    missing_age <- sum(is.na(df_plot$age_group))
+
   }
 
-  df_plot %<>% filter({{gender_col}} %in% gender_levels)
+  df_plot <- df_plot %>% filter({{gender_col}} %in% gender_levels)
 
   missing_total <- nrow(df) - nrow(df_plot)
 
   g_vars <- dplyr::enquos(facet_col, gender_col)
 
-  df_plot %<>%
+  df_plot <- df_plot %>%
     count(!!!g_vars, age_group) %>%
     mutate(n = if_else({{gender_col}} == gender_levels[1], -n, n))
 
@@ -114,7 +123,7 @@ plot_pyramid <- function(
     coord_flip() +
     scale_x_discrete(drop = drop_age_levels) +
     scale_fill_manual(name = NULL, values = colours, breaks = gender_levels, labels = gender_labs) +
-    scale_y_continuous(limits = pyramid_limits, breaks = pyramid_brks, label = pyramid_labs) +
+    scale_y_continuous(limits = pyramid_limits, breaks = pyramid_brks, labels = pyramid_labs) +
     theme(legend.position = "top") +
     labs(x = x_lab, y = y_lab)  +
     guides(y.sec = guide_axis_label_trans(~paste(.x))) # show age group labels on both axis
@@ -155,7 +164,7 @@ plot_pyramid <- function(
   return(p)
 }
 
-#' @noRd 
+#' @noRd
 pyramid_brks <- function(x, n = 3) {
   brks <- pretty(0:max(abs(x)), n = n)
   c(-brks, brks)
@@ -190,3 +199,4 @@ pyramid_labs_colour <- function(x, f = 5, in_col = "white", out_col = "grey30") 
     x < 0 & abs(x) > max(abs(x)) / f ~ in_col
   )
 }
+

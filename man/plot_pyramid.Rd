@@ -70,14 +70,14 @@ or a character/factor vector of age groups.}
 \item{lab_nudge_factor}{threshold for moving a data label outside a bar. Defaults to 5.
 Increasing the number increases the distance from the max value required to move a label outside the bar.}
 
-\item{facet_nrow}{nrow argument passed to \code{\link[ggplot2:facet_wrap]{ggplot2::facet_wrap}}}
+\item{facet_nrow}{nrow argument passed to \code{\link[ggplot2:facet_wrap]{ggplot2::facet_wrap}}.}
 
-\item{facet_ncol}{ncol argument passed to \code{\link[ggplot2:facet_wrap]{ggplot2::facet_wrap}}}
+\item{facet_ncol}{ncol argument passed to \code{\link[ggplot2:facet_wrap]{ggplot2::facet_wrap}}.}
 
 \item{facet_scales}{facet scales argument passed to \code{\link[ggplot2:facet_wrap]{ggplot2::facet_wrap}}.
 Should scales be fixed ("fixed", the default), free ("free"), or free in one dimension ("free_x", "free_y")?}
 
-\item{facet_labs}{facet labeller argument passed to \code{\link[ggplot2:facet_wrap]{ggplot2::facet_wrap}}. Defaults to \code{\link{label_wrap_gen(width = 25)}}}
+\item{facet_labs}{facet labeller argument passed to \code{\link[ggplot2:facet_wrap]{ggplot2::facet_wrap}}. Defaults to \code{\link{label_wrap_gen(width = 25)}}.}
 
 \item{facet_lab_pos}{facet label position argument passed to strip.position in \code{\link[ggplot2:facet_wrap]{ggplot2::facet_wrap}}.
 Defaults to "top". Options are \code{c("top", "bottom", "left", "right")}.}
@@ -92,6 +92,7 @@ Plot Age/Sex Pyramids
 }
 \examples{
 
+suppressMessages(library(dplyr))
 df_flu <- outbreaks::fluH7N9_china_2013
 
 plot_pyramid(

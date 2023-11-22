@@ -24,7 +24,8 @@
 #' @param sec_date_axis plot a secondary date axis using default calculated ggplot2 date breaks and labels? defaults to FALSE
 #' @param facet_nrow nrow argument passed to [`ggplot2::facet_wrap`]
 #' @param facet_ncol ncol argument passed to [`ggplot2::facet_wrap`]
-#' @param facet_labs facet labeller argument passed to [`ggplot2::facet_wrap`]. Defaults to [`label_wrap_gen(width = 25)`]
+#' @param facet_labs facet labeller argument passed to [`ggplot2::facet_wrap`]. Defaults to [`label_wrap_gen(width = 25)`].
+#' @param facet_scales value for the `scales` argument passed to [`ggplot2::facet_wrap`]. Default to `fixed`.
 #' @param facet_lab_pos facet label position argument passed to strip.position in [`ggplot2::facet_wrap`]. defaults to "top". Options are `c("top", "bottom", "left", "right")`
 #' @param group_na_colour colour for missing values in `group_col`. defaults to "grey"
 #' @param title optional title for the plot
@@ -38,6 +39,7 @@
 #'
 #' @examples
 #'
+#' library(dplyr)
 #' df_ebola <- dplyr::as_tibble(outbreaks::ebola_sim_clean$linelist)
 #'
 #' df_ebola %>%
@@ -59,6 +61,7 @@
 #'
 #' @import ggplot2
 #' @export
+#'
 plot_epicurve <- function(df,
                           date_col,
                           group_col = NULL,
