@@ -3,30 +3,16 @@
 #'
 #' @param base_family base font family
 #' @param base_size base font size
-#' @param plot_title_family plot title family, face, size and margins
-#' @param plot_title_size plot title family, face, size and margins
-#' @param plot_title_face plot title family, face, size and margins
-#' @param plot_title_margin plot title family, face, size and margins
-#' @param subtitle_family plot subtitle family, face, size and margins
-#' @param subtitle_size plot subtitle family, face, size and margins
-#' @param subtitle_face plot subtitle family, face, size and margins
-#' @param subtitle_margin plot subtitle family, face, size and margins
-#' @param strip_text_family Facet label family, face, size
-#' @param strip_text_size Facet label family, face, size
-#' @param strip_text_face Facet label family, face, size
-#' @param caption_family plot caption family, face, size and margin
-#' @param caption_size plot caption family, face, size and margin
-#' @param caption_face plot caption family, face, size and margin
-#' @param caption_margin plot caption family, face, size and margin
+#' @param plot_title_family,plot_title_size,plot_title_face,plot_title_margin plot title family, face, size and margins
+#' @param subtitle_family,subtitle_size,subtitle_face,subtitle_margin plot subtitle family, face, size and margins
+#' @param strip_text_family,strip_text_size,strip_text_face Facet label family, face, size
+#' @param caption_family,caption_size,caption_size,caption_margin plot caption family, face, size and margin
 #' @param axis_text_size font size of axis text
-#' @param axis_title_family axis title font family, face and size
-#' @param axis_title_size axis title font family, face and size
-#' @param axis_title_face axis title font family, face and size
+#' @param axis_title_family,axis_title_size,axis_title_face axis title font family, face and size
 #' @param axis_title_just axis title font justification, one of ⁠[blmcrt]⁠
-#' @param plot_margin lot margin (specify with ggplot2::margin())
-#' @param grid_col grid & axis colors; both default to ⁠#cccccc⁠
+#' @param plot_margin plot margin (specify with ggplot2::margin())
+#' @param grid_col,axis_col grid & axis colors; both default to ⁠#cccccc⁠
 #' @param grid panel grid (TRUE, FALSE, or a combination of X, x, Y, y)
-#' @param axis_col grid & axis colors; both default to ⁠#cccccc⁠
 #' @param axis add x or y axes? TRUE, FALSE, "xy"
 #' @param ticks ticks if TRUE add ticks
 #'
