@@ -1,3 +1,4 @@
+# Different standard themes for ggplot, gt and reactable
 
 #' Epurated Ggplot theme (inspired from hrbrthemes)
 #'
@@ -35,7 +36,7 @@
 epi_ggtheme <- function (base_family = "sans",
                          base_size = 10,
                          plot_title_family = base_family,
-                         plot_title_size = 10,
+                         plot_title_size = 14,
                          plot_title_face = "bold",
                          plot_title_margin = 10,
                          subtitle_family = base_family,
@@ -180,3 +181,15 @@ epi_ggtheme <- function (base_family = "sans",
 
                      plot.margin = plot_margin)
 }
+
+
+# Gt theme ----------------------------------------------------------------
+
+
+
+
+
+
+
+
+
