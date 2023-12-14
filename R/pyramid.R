@@ -172,7 +172,8 @@ pyramid_brks <- function(x, n = 3) {
 
 #' @noRd
 pyramid_labs <- function(x) {
-  scales::label_number_si()(abs(x))
+  #scales::label_number_si()(abs(x))
+  scales::label_number()(abs(x))
 }
 
 #' @noRd

@@ -114,9 +114,9 @@ epi_ggtheme <- function (base_family = "sans",
     }
     else {
       ret <- ret + theme(axis.line.x = element_line(color = axis_col,
-                                                    linewidth = 0.15))
+                                                    linewidth = 0.15),
 
-      ret <- ret + theme(axis.line.y = element_line(color = axis_col,
+                         axis.line.y = element_line(color = axis_col,
                                                     linewidth = 0.15))
     }
   }
