@@ -8,7 +8,7 @@ epi_ggtheme(
   base_family = "sans",
   base_size = 10,
   plot_title_family = base_family,
-  plot_title_size = 10,
+  plot_title_size = 14,
   plot_title_face = "bold",
   plot_title_margin = 10,
   subtitle_family = base_family,
