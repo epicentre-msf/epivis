@@ -2,10 +2,13 @@
 
 export(dodge_x_labs)
 export(epi_ggtheme)
+export(epi_gtstyle)
 export(label_breaks)
 export(plot_epicurve)
 export(plot_pyramid)
 export(plot_stacked_bar)
 import(ggplot2)
+import(gt)
 importFrom(magrittr,"%<>%")
 importFrom(magrittr,"%>%")
+

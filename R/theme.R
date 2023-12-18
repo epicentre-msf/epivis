@@ -185,9 +185,76 @@ epi_ggtheme <- function (base_family = "sans",
 
 # Gt theme ----------------------------------------------------------------
 
+#' Table styling for gt table
+#'
+#' @param table a table to be converted to gt
+#'
+#' @return a gt object formatted
+#' @export
+#'
+#' @examples
+#'
+#' library(dplyr)
+#' library(gt)
+#'
+#' df_ebola <- dplyr::as_tibble(outbreaks::ebola_sim_clean$linelist)
+#'
+#' cfr_tab <- df_ebola %>%
+#'
+#'   group_by(hospital) %>%
+#'
+#'   summarise(n_cases = n(),
+#'             max_date = max(date_of_hospitalisation, na.rm = TRUE),
+#'             n_female = sum(gender == "f", na.rm = TRUE),
+#'             n_death = sum(outcome == "Death", na.rm = TRUE),
+#'             CFR = round(digits = 2, (n_death/sum(outcome %in% c("Death", "Recover"))) *100)
+#'   )
+#'
+#' cfr_tab %>%
+#'   epi_gtstyle() %>%
+#'
+#'   gt::tab_footnote("CFR calculated on patients with known outcome")
+#'
 
+epi_gtstyle <- function(table) {
 
+  # x is gt
 
+  gt <- gt::gt(table)
+
+  #style the
+  gt <- gt %>%
+
+    #style of col labels
+    gt::tab_style(style = list(gt::cell_text(weight = "bold",
+                                             size = "14px",
+                                             align = "center")),
+                  locations = gt::cells_column_labels()
+    ) %>%
+
+    #style of body
+    gt::tab_style(style = list(gt::cell_text(size = "14px",
+                                             align = "center"),
+                               gt::cell_borders(sides = "all",
+                                                color = "white")),
+                  locations = gt::cells_body()
+    ) %>%
+
+    #style of footnotes
+    gt::tab_style(style = list(gt::cell_text(size = "12px",
+                                             style = "italic")),
+
+                  locations = gt::cells_footnotes()
+    ) %>%
+
+    #style source notes
+    gt::tab_style(locations = gt::cells_source_notes(),
+                  style = gt::cell_text(style = 'italic',
+                                        align = "right",
+                                        size = "11px"))
+
+  return(gt)
+}
 
 
 
