@@ -1,4 +1,4 @@
-#' Title
+#' Missing data visualisation
 #'
 #' @param x a dataframe
 #' @param facet a character value of variable to facet the graph
@@ -9,21 +9,15 @@
 #' @export
 #'
 #' @examples
-#' #Use fake data from Epidemiologist R handbook
+#' Use simulated measles data
 #'
-#' suppressMessages(c(library(dplyr), library(readr)))
-#' linelist <- read_rds("https://github.com/appliedepi/epirhandbook/raw/master/inst/extdata/case_linelists/linelist_cleaned.rds")
+#' suppressMessages(library(dplyr))
 #'
-#' plot_stacked_bar(
-#'   linelist,
-#'   cols = c( "fever", "vomit", "chills", "cough", "aches"),
-#'   levels_value = c("yes"),
-#'   keep_na = FALSE,
-#'   use_counts = TRUE,
-#'   flip = FALSE
-#' )
-#'
-miss_vis <- function(
+#' epivis::moissala_measles |>
+#'   filter(site %in% c("Moïssala Hospital", "Bouna Hospital")) |>
+#'   plot_miss_vis(facet = "site")
+
+plot_miss_vis <- function(
   x,
   facet = NULL,
   col_vec = c("#6a040f", "#cce3de"),
@@ -62,7 +56,7 @@ miss_vis <- function(
         observations = row_number()
       ) |>
       dplyr::relocate(observations, .before = 1) |>
-      dplyr::pivot_longer(
+      tidyr::pivot_longer(
         cols = !observations & !.data[[facet]],
         names_to = "variable_name",
         values_to = "status"
@@ -108,7 +102,6 @@ miss_vis <- function(
       height = .9,
       width = .8
     ) +
-
     ggplot2::scale_fill_manual(
       "Assessment",
       values = c(

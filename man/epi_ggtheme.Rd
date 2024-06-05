@@ -46,7 +46,7 @@ epi_ggtheme(
 
 \item{strip_text_family, strip_text_size, strip_text_face}{Facet label family, face, size}
 
-\item{caption_family, caption_size, caption_size, caption_margin}{plot caption family, face, size and margin}
+\item{caption_family, caption_face, caption_size, caption_margin}{plot caption family, face, size and margin}
 
 \item{axis_text_size}{font size of axis text}
 
@@ -76,7 +76,6 @@ library(dplyr)
 library(ggplot2)
 ggplot(data = iris) +
   geom_histogram(aes(x = Sepal.Length)) +
-
   epi_ggtheme()
 
 }

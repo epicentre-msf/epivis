@@ -23,19 +23,17 @@ library(gt)
 df_ebola <- dplyr::as_tibble(outbreaks::ebola_sim_clean$linelist)
 
 cfr_tab <- df_ebola \%>\%
-
   group_by(hospital) \%>\%
-
-  summarise(n_cases = n(),
-            max_date = max(date_of_hospitalisation, na.rm = TRUE),
-            n_female = sum(gender == "f", na.rm = TRUE),
-            n_death = sum(outcome == "Death", na.rm = TRUE),
-            CFR = round(digits = 2, (n_death/sum(outcome \%in\% c("Death", "Recover"))) *100)
+  summarise(
+    n_cases = n(),
+    max_date = max(date_of_hospitalisation, na.rm = TRUE),
+    n_female = sum(gender == "f", na.rm = TRUE),
+    n_death = sum(outcome == "Death", na.rm = TRUE),
+    CFR = round(digits = 2, (n_death / sum(outcome \%in\% c("Death", "Recover"))) * 100)
   )
 
 cfr_tab \%>\%
   epi_gtstyle() \%>\%
-
   gt::tab_footnote("CFR calculated on patients with known outcome")
 
 }
