@@ -85,13 +85,13 @@ plot_pyramid <- function(
     stop("`gender_labs` should be of length 2 i.e. `c('Male', 'Female')`")
   }
 
-  missing_gender <- df %>% filter(!({{gender_col}}) %in% gender_levels | is.na({{gender_col}})) %>% nrow()
+  missing_gender <- df |> filter(!({{gender_col}}) %in% gender_levels | is.na({{gender_col}})) |> nrow()
 
   if (make_age_groups) {
-    df_plot <- df %>% mutate(age_group = suppressWarnings(as.numeric(as.character({{age_col}}))))
+    df_plot <- df |> mutate(age_group = suppressWarnings(as.numeric(as.character({{age_col}}))))
     missing_age <- sum(is.na(df_plot$age_group))
-    df_plot <- df_plot %>%
-      tidyr::drop_na(age_group) %>%
+    df_plot <- df_plot |>
+      tidyr::drop_na(age_group) |>
       dplyr::mutate(age_group = cut(age_group, breaks = age_breaks, labels = age_labels, right = FALSE, include.lowest = TRUE))
 
   } else {
@@ -100,21 +100,21 @@ plot_pyramid <- function(
     }
 
     #needs to define df_plot if make_age_groups = FALSE
-    df_plot <- df %>%
+    df_plot <- df |>
       tidyr::drop_na(age_group)
 
     missing_age <- sum(is.na(df_plot$age_group))
 
   }
 
-  df_plot <- df_plot %>% filter({{gender_col}} %in% gender_levels)
+  df_plot <- df_plot |> filter({{gender_col}} %in% gender_levels)
 
   missing_total <- nrow(df) - nrow(df_plot)
 
   g_vars <- dplyr::enquos(facet_col, gender_col)
 
-  df_plot <- df_plot %>%
-    count(!!!g_vars, age_group) %>%
+  df_plot <- df_plot |>
+    count(!!!g_vars, age_group) |>
     mutate(n = if_else({{gender_col}} == gender_levels[1], -n, n))
 
   p <- ggplot(df_plot, aes(x = age_group, y = n, fill = {{gender_col}})) +

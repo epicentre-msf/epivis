@@ -24,7 +24,7 @@ plot_epicurve(
   facet_nrow = NULL,
   facet_ncol = NULL,
   facet_scales = "fixed",
-  facet_labs = label_wrap_gen(width = 25),
+  facet_labs = ggplot2::label_wrap_gen(width = 25),
   facet_lab_pos = "top",
   group_na_colour = "grey",
   title = waiver(),
@@ -106,8 +106,8 @@ grouping data, facets and proportion lines.
 library(dplyr)
 df_ebola <- dplyr::as_tibble(outbreaks::ebola_sim_clean$linelist)
 
-df_ebola \%>\%
-  dplyr::mutate(outcome = forcats::fct_explicit_na(outcome, "Unknown")) \%>\%
+df_ebola |>
+  dplyr::mutate(outcome = forcats::fct_explicit_na(outcome, "Unknown")) |>
   plot_epicurve(
     date_col = date_of_onset,
     group_col = outcome,

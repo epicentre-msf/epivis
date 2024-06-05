@@ -19,6 +19,7 @@ Imports:
     magrittr,
     scales,
     glue,
+    gt,
     ggthemes,
     lubridate,
     classInt,

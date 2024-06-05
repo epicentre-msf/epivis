@@ -5,7 +5,6 @@ destination: docs
 template:
   params:
     bootswatch: paper
-
 authors:
   Paul Campbell:
     href: https://github.com/paulc91

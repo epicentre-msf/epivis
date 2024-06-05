@@ -40,18 +40,28 @@ Stacked barplot
 }
 \examples{
 
-#Use fake data from Epidemiologist R handbook
+# Use fake data from Epidemiologist R handbook
 
-suppressMessages(c(library(dplyr), library(readr)))
-linelist <- read_rds("https://github.com/appliedepi/epirhandbook/raw/master/inst/extdata/case_linelists/linelist_cleaned.rds")
+suppressMessages(library(dplyr))
 
-plot_stacked_bar(
-  linelist,
-  cols = c( "fever", "vomit", "chills", "cough", "aches"),
-  levels_value = c("yes"),
-  keep_na = FALSE,
-  use_counts = TRUE,
-  flip = FALSE
-)
+epivis::moissala_measles |>
+  mutate(across(
+    c(
+      fever,
+      rash,
+      cough,
+      red_eye,
+      pneumonia,
+      encephalitis
+    ),
+    ~ as.character(.x)
+  )) |>
+  plot_stacked_bar(
+    cols = c("fever", "rash", "cough", "red_eye", "pneumonia", "encephalitis"),
+    levels_value = c(0, 1),
+    keep_na = FALSE,
+    use_counts = FALSE,
+    flip = TRUE
+  )
 
 }

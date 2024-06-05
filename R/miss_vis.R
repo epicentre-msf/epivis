@@ -9,7 +9,7 @@
 #' @export
 #'
 #' @examples
-#' Use simulated measles data
+#' # Use simulated measles data
 #'
 #' suppressMessages(library(dplyr))
 #'
@@ -25,12 +25,12 @@ plot_miss_vis <- function(
 ) {
   if (is.null(facet)) {
     tile_dat <- x |>
-      dplyr::mutate(across(everything(), ~ case_when(
+      dplyr::mutate(dplyr::across(everything(), ~ case_when(
         is.na(.x) ~ "Missing",
         !is.na(.x) ~ "Present"
       ))) |>
       dplyr::mutate(
-        observations = row_number()
+        observations = dplyr::row_number()
       ) |>
       dplyr::relocate(observations, .before = 1) |>
       tidyr::pivot_longer(
@@ -47,7 +47,7 @@ plot_miss_vis <- function(
       )
   } else {
     tile_dat <- x |>
-      dplyr::mutate(across(!.data[[facet]], ~ dplyr::case_when(
+      dplyr::mutate(dplyr::across(!.data[[facet]], ~ dplyr::case_when(
         is.na(.x) ~ "Missing",
         !is.na(.x) ~ "Present"
       ))) |>

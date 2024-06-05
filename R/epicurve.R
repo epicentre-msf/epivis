@@ -42,8 +42,8 @@
 #' library(dplyr)
 #' df_ebola <- dplyr::as_tibble(outbreaks::ebola_sim_clean$linelist)
 #'
-#' df_ebola %>%
-#'   dplyr::mutate(outcome = forcats::fct_explicit_na(outcome, "Unknown")) %>%
+#' df_ebola |>
+#'   dplyr::mutate(outcome = forcats::fct_explicit_na(outcome, "Unknown")) |>
 #'   plot_epicurve(
 #'     date_col = date_of_onset,
 #'     group_col = outcome,
@@ -81,7 +81,7 @@ plot_epicurve <- function(df,
                           facet_nrow = NULL,
                           facet_ncol = NULL,
                           facet_scales = "fixed",
-                          facet_labs = label_wrap_gen(width = 25),
+                          facet_labs = ggplot2::label_wrap_gen(width = 25),
                           facet_lab_pos = "top",
                           group_na_colour = "grey",
                           title = waiver(),
@@ -96,17 +96,17 @@ plot_epicurve <- function(df,
 
   if (floor_date_week) {
     stopifnot(week_start %in% 1:7)
-    df <- df %>% dplyr::mutate({{date_col}} := floor_week({{date_col}}, week_start = week_start))
+    df <- df |> dplyr::mutate({{date_col}} := floor_week({{date_col}}, week_start = week_start))
   }
 
-  df_epicurve <- df %>%
+  df_epicurve <- df |>
     dplyr::count(!!!g_vars_1)
 
   if (!missing(prop_col)) {
     if (is.null(prop_numer) | is.null(prop_denom))
       stop("Proportion numerator and demoninator values must be supplied")
-    df_prop <- df %>%
-      dplyr::group_by(!!!g_vars_2) %>%
+    df_prop <- df |>
+      dplyr::group_by(!!!g_vars_2) |>
       dplyr::summarise(
         n = dplyr::n(),
         denom = ifelse(prop_denom == "non_missing", sum(!is.na({{prop_col}})), sum({{prop_col}} %in% prop_denom)),
@@ -152,10 +152,10 @@ plot_epicurve <- function(df,
   if (label_weeks) {
     if (missing(date_breaks)) {
       # show ~10 week breaks by default
-      week_breaks <- df %>%
-        dplyr::distinct({{date_col}}) %>%
-        dplyr::arrange({{date_col}}) %>%
-        tidyr::complete({{date_col}} := seq.Date(min({{date_col}}), max({{date_col}}), by = "week")) %>%
+      week_breaks <- df |>
+        dplyr::distinct({{date_col}}) |>
+        dplyr::arrange({{date_col}}) |>
+        tidyr::complete({{date_col}} := seq.Date(min({{date_col}}), max({{date_col}}), by = "week")) |>
         dplyr::pull()
       n_weeks <- length(week_breaks)
       seq_by <- ceiling(n_weeks / 10)

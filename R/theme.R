@@ -10,7 +10,7 @@
 #' @param caption_family,caption_face,caption_size,caption_margin plot caption family, face, size and margin
 #' @param axis_text_size font size of axis text
 #' @param axis_title_family,axis_title_size,axis_title_face axis title font family, face and size
-#' @param axis_title_just axis title font justification, one of ⁠[blmcrt]⁠
+#' @param axis_title_just axis title font justification
 #' @param plot_margin plot margin (specify with ggplot2::margin())
 #' @param grid_col,axis_col grid & axis colors; both default to ⁠#cccccc⁠
 #' @param grid panel grid (TRUE, FALSE, or a combination of X, x, Y, y)
@@ -256,8 +256,8 @@ epitheme_gg <- function(
 #'
 #' df_ebola <- dplyr::as_tibble(outbreaks::ebola_sim_clean$linelist)
 #'
-#' cfr_tab <- df_ebola %>%
-#'   group_by(hospital) %>%
+#' cfr_tab <- df_ebola |>
+#'   group_by(hospital) |>
 #'   summarise(
 #'     n_cases = n(),
 #'     max_date = max(date_of_hospitalisation, na.rm = TRUE),
@@ -266,12 +266,16 @@ epitheme_gg <- function(
 #'     CFR = round(digits = 2, (n_death / sum(outcome %in% c("Death", "Recover"))) * 100)
 #'   )
 #'
-#' cfr_tab %>%
-#'   epitheme_gt() %>%
+#' cfr_tab |>
+#'   epitheme_gt() |>
 #'   gt::tab_footnote("CFR calculated on patients with known outcome")
 #'
+#' @import gt
+#' @export
+
 epitheme_gt <- function(table) {
   gt <- gt::gt(table) |>
+
     # style of col labels
     gt::tab_style(
       style = list(gt::cell_text(
@@ -280,7 +284,7 @@ epitheme_gt <- function(table) {
         align = "center"
       )),
       locations = gt::cells_column_labels()
-    ) %>%
+    ) |>
     # style of body
     gt::tab_style(
       style = list(
@@ -294,7 +298,7 @@ epitheme_gt <- function(table) {
         )
       ),
       locations = gt::cells_body()
-    ) %>%
+    ) |>
     # style of footnotes
     gt::tab_style(
       style = list(gt::cell_text(
@@ -302,7 +306,7 @@ epitheme_gt <- function(table) {
         style = "italic"
       )),
       locations = gt::cells_footnotes()
-    ) %>%
+    ) |>
     # style source notes
     gt::tab_style(
       locations = gt::cells_source_notes(),
