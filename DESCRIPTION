@@ -2,20 +2,28 @@ Package: epivis
 Title: Tools for visualising epidemiological data
 Version: 0.0.0.9000
 Authors@R: 
-    person(given = "Paul",
-           family = "Campbell",
-           role = c("aut", "cre"),
-           email = "paul.campbell@epicentre.msf.org",
-           comment = c(ORCID = "0000-0003-1018-6606"))
+    c(person(given = "Paul",
+             family = "Campbell",
+             role = c("aut", "cre"),
+             email = "paul.campbell@epicentre.msf.org",
+             comment = c(ORCID = "0000-0003-1018-6606")),
+      person(given = "Hugo",
+             family = "Soubrier",
+             role = c("aut"),
+             email = "hugo.soubrier@epicentre.msf.org"))
 Description: What the package does (one paragraph).
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 LazyData: true
 Imports: 
+    cli,
+    rlang,
     ggplot2,
     dplyr,
+    purrr,
     tidyr,
+    stringr,
     magrittr,
     scales,
     glue,

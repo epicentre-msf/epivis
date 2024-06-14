@@ -4,5 +4,6 @@
 inst/doc
 doc
 Meta
-
+,DS_Store
 local/
+docs
