@@ -24,7 +24,7 @@ plot_miss_vis(
 a ggplot tile graph displaying the missing/present values for all variables of the dataframe
 }
 \description{
-Missing data visualisation
+Function to generate a tile plot exploring the missing values for all observations across all variables of a dataframe.
 }
 \examples{
 # Use simulated measles data

@@ -1,5 +1,7 @@
 #' Missing data visualisation
 #'
+#' Function to generate a tile plot exploring the missing values for all observations across all variables of a dataframe.
+#'
 #' @param x a dataframe
 #' @param facet a character value of variable to facet the graph
 #' @param col_vec a vector of length 2 specifying the color for Missing and Present values respectively
@@ -18,10 +20,10 @@
 #'   plot_miss_vis(facet = "site")
 
 plot_miss_vis <- function(
-  x,
-  facet = NULL,
-  col_vec = c("#6a040f", "#cce3de"),
-  y_axis_text_size = 8
+    x,
+    facet = NULL,
+    col_vec = c("#6a040f", "#cce3de"),
+    y_axis_text_size = 8
 ) {
   if (is.null(facet)) {
     tile_dat <- x |>

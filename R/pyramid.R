@@ -25,7 +25,7 @@
 #' @param facet_ncol ncol argument passed to [`ggplot2::facet_wrap`].
 #' @param facet_scales facet scales argument passed to [`ggplot2::facet_wrap`].
 #'  Should scales be fixed ("fixed", the default), free ("free"), or free in one dimension ("free_x", "free_y")?
-#' @param facet_labs facet labeller argument passed to [`ggplot2::facet_wrap`]. Defaults to [`label_wrap_gen(width = 25)`].
+#' @param facet_labs facet labeller argument passed to [`ggplot2::facet_wrap`]. Defaults to [`ggplot2::label_wrap_gen(width = 25)`].
 #' @param facet_lab_pos facet label position argument passed to strip.position in [`ggplot2::facet_wrap`].
 #'  Defaults to "top". Options are `c("top", "bottom", "left", "right")`.
 #' @param add_missing_cap show missing data counts for `age_col` and `gender_col`? Defaults to TRUE.

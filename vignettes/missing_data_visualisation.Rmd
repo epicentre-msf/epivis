@@ -1,0 +1,71 @@
+---
+title: "missing_data_visualisation"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{missing_data_visualisation}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+```{r setup}
+library(dplyr)
+library(ggplot2)
+library(epivis)
+
+# set a ggplot2 theme of your preference
+theme_set(epivis::epitheme_gg())
+```
+
+```{r load-data}
+df <- epivis::moissala_measles 
+
+glimpse(df)
+```
+
+By default `plot_miss_vis()` will plot a graph of the missing values in each of the observations and variables of the dataframe. It will present the proportions of missing values for a single variables in the label of the y-axis, and the overall proportions of missing value across the dataframe in the legend.
+
+```{r}
+plot_miss_vis(
+  df
+)
+```
+
+
+## Facet the graph 
+
+The missing values plot can be facetted by a group variable using the `facet = "variable_name"` argument
+
+```{r}
+
+df |> 
+  filter(site %in% c("Moïssala Hospital", "Bedaya Hospital")) |> 
+  plot_miss_vis(
+    facet = "site"
+  )
+
+```
+
+
+## Further customisation
+
+Colors of the graph can be changed using the `color_vec` argument. It takes a length 2 vector of HEX code, with the first color for Missing values. `y_axis_text_size` allows manual specification of the y-axis text size, which can be hard to read when exploring many variables.
+
+```{r}
+
+df |> 
+  filter(site %in% c("Moïssala Hospital", "Bedaya Hospital")) |> 
+  
+  plot_miss_vis(
+    facet = "site", 
+    y_axis_text_size = 6, 
+    col_vec = c("seagreen", "lightblue")
+  )
+
+```
