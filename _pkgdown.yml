@@ -1,29 +1,24 @@
 url: https://epicentre-msf.github.io/epivis/
-
 destination: docs
-
 template:
-  params:
-    bootswatch: paper
+  bootstrap: 5
 authors:
   Paul Campbell:
     href: https://github.com/paulc91
   Hugo Soubrier:
     href: https://github.com/hugzsoubrier
-
 reference:
 - title: Plotting functions
-  desc:  Functions to make graphics
-  contents:
-  - starts_with("plot")
-
+  desc: Functions to make graphics
+  contents: starts_with("plot")
 - title: Utility functions
   desc: Helpers to make your life easier
   contents:
   - label_breaks
-  - dodge_x_labels
-
+  - dodge_x_labs
 - title: Themes & stylers
   desc: Pre-made themes for standardised tables and ggplots
-  contents:
-  - starts_with("epitheme")
+  contents: starts_with("epitheme")
+- title: Data
+  desc: Example package data
+  contents: moissala_measles
