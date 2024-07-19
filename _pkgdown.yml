@@ -16,9 +16,6 @@ reference:
   contents:
   - label_breaks
   - dodge_x_labs
-- title: Themes & stylers
-  desc: Pre-made themes for standardised tables and ggplots
-  contents: starts_with("epitheme")
 - title: Data
   desc: Example package data
   contents: moissala_measles

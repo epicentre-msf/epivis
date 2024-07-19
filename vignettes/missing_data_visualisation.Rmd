@@ -20,7 +20,7 @@ library(ggplot2)
 library(epivis)
 
 # set a ggplot2 theme of your preference
-theme_set(epivis::epitheme_gg())
+theme_set(epithemes::epitheme_gg())
 ```
 
 ```{r load-data}
