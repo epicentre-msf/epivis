@@ -19,8 +19,6 @@ library(dplyr)
 library(ggplot2)
 library(epivis)
 
-# set a ggplot2 theme of your preference
-theme_set(epithemes::epitheme_gg())
 ```
 
 ```{r load-data}
