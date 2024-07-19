@@ -1,57 +1,20 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>https://epicentre-msf.github.io/epivis/404.html</loc>
-  </url>
-  <url>
-    <loc>https://epicentre-msf.github.io/epivis/LICENSE-text.html</loc>
-  </url>
-  <url>
-    <loc>https://epicentre-msf.github.io/epivis/LICENSE.html</loc>
-  </url>
-  <url>
-    <loc>https://epicentre-msf.github.io/epivis/articles/epicurves.html</loc>
-  </url>
-  <url>
-    <loc>https://epicentre-msf.github.io/epivis/articles/index.html</loc>
-  </url>
-  <url>
-    <loc>https://epicentre-msf.github.io/epivis/articles/pyramids.html</loc>
-  </url>
-  <url>
-    <loc>https://epicentre-msf.github.io/epivis/authors.html</loc>
-  </url>
-  <url>
-    <loc>https://epicentre-msf.github.io/epivis/index.html</loc>
-  </url>
-  <url>
-    <loc>https://epicentre-msf.github.io/epivis/reference/dodge_x_labs.html</loc>
-  </url>
-  <url>
-    <loc>https://epicentre-msf.github.io/epivis/reference/epitheme_gg.html</loc>
-  </url>
-  <url>
-    <loc>https://epicentre-msf.github.io/epivis/reference/epitheme_gt.html</loc>
-  </url>
-  <url>
-    <loc>https://epicentre-msf.github.io/epivis/reference/index.html</loc>
-  </url>
-  <url>
-    <loc>https://epicentre-msf.github.io/epivis/reference/label_breaks.html</loc>
-  </url>
-  <url>
-    <loc>https://epicentre-msf.github.io/epivis/reference/moissala_measles.html</loc>
-  </url>
-  <url>
-    <loc>https://epicentre-msf.github.io/epivis/reference/plot_epicurve.html</loc>
-  </url>
-  <url>
-    <loc>https://epicentre-msf.github.io/epivis/reference/plot_miss_vis.html</loc>
-  </url>
-  <url>
-    <loc>https://epicentre-msf.github.io/epivis/reference/plot_pyramid.html</loc>
-  </url>
-  <url>
-    <loc>https://epicentre-msf.github.io/epivis/reference/plot_stacked_bar.html</loc>
-  </url>
+<urlset xmlns = 'http://www.sitemaps.org/schemas/sitemap/0.9'>
+<url><loc>https://epicentre-msf.github.io/epivis/404.html</loc></url>
+<url><loc>https://epicentre-msf.github.io/epivis/LICENSE-text.html</loc></url>
+<url><loc>https://epicentre-msf.github.io/epivis/LICENSE.html</loc></url>
+<url><loc>https://epicentre-msf.github.io/epivis/articles/epicurves.html</loc></url>
+<url><loc>https://epicentre-msf.github.io/epivis/articles/index.html</loc></url>
+<url><loc>https://epicentre-msf.github.io/epivis/articles/missing_data_visualisation.html</loc></url>
+<url><loc>https://epicentre-msf.github.io/epivis/articles/pyramids.html</loc></url>
+<url><loc>https://epicentre-msf.github.io/epivis/authors.html</loc></url>
+<url><loc>https://epicentre-msf.github.io/epivis/index.html</loc></url>
+<url><loc>https://epicentre-msf.github.io/epivis/reference/dodge_x_labs.html</loc></url>
+<url><loc>https://epicentre-msf.github.io/epivis/reference/index.html</loc></url>
+<url><loc>https://epicentre-msf.github.io/epivis/reference/label_breaks.html</loc></url>
+<url><loc>https://epicentre-msf.github.io/epivis/reference/moissala_measles.html</loc></url>
+<url><loc>https://epicentre-msf.github.io/epivis/reference/plot_epicurve.html</loc></url>
+<url><loc>https://epicentre-msf.github.io/epivis/reference/plot_miss_vis.html</loc></url>
+<url><loc>https://epicentre-msf.github.io/epivis/reference/plot_pyramid.html</loc></url>
+<url><loc>https://epicentre-msf.github.io/epivis/reference/plot_stacked_bar.html</loc></url>
 </urlset>
+
