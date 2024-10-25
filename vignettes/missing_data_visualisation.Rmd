@@ -1,8 +1,9 @@
 ---
-title: "missing_data_visualisation"
+title: Visualising Missing Data
+author: Hugo Soubrier
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{missing_data_visualisation}
+  %\VignetteIndexEntry{Visualising Missing Data}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -18,7 +19,6 @@ knitr::opts_chunk$set(
 library(dplyr)
 library(ggplot2)
 library(epivis)
-
 ```
 
 ```{r load-data}
@@ -59,7 +59,6 @@ Colors of the graph can be changed using the `color_vec` argument. It takes a le
 
 df |> 
   filter(site %in% c("Moïssala Hospital", "Bedaya Hospital")) |> 
-  
   plot_miss_vis(
     facet = "site", 
     y_axis_text_size = 6, 

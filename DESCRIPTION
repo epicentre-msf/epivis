@@ -11,7 +11,7 @@ Authors@R:
              family = "Soubrier",
              role = c("aut"),
              email = "hugo.soubrier@epicentre.msf.org"))
-Description: What the package does (one paragraph).
+Description: Static visualisation of patient level linelist data.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
